@@ -7,12 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: radial-gradient(circle at 10% 20%, rgba(10, 20, 35, 1) 0%, rgba(0, 5, 15, 1) 100%);
@@ -21,13 +16,7 @@
             color: #eef5ff;
             transition: background 0.3s ease;
         }
-
-        .dashboard {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Header */
+        .dashboard { max-width: 1400px; margin: 0 auto; }
         .hero-section {
             display: flex;
             justify-content: space-between;
@@ -38,9 +27,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             gap: 1rem;
         }
-        .title-area {
-            flex: 1;
-        }
+        .title-area { flex: 1; }
         .title-area h1 {
             font-size: 2.8rem;
             font-weight: 700;
@@ -58,26 +45,12 @@
             display: inline-flex;
             align-items: center;
             gap: 0.8rem;
-            max-width: 100%;
+            cursor: pointer;
             border: 0.5px solid rgba(255,255,255,0.15);
-            cursor: pointer;
         }
-        .sentence-text {
-            font-size: 0.85rem;
-            color: #e2edff;
-            word-break: break-word;
-            flex: 1;
-        }
-        .sentence-refresh {
-            font-size: 0.7rem;
-            color: #8aadcc;
-            cursor: pointer;
-        }
-        .right-header {
-            display: flex;
-            gap: 1.2rem;
-            align-items: center;
-        }
+        .sentence-text { font-size: 0.85rem; color: #e2edff; flex:1; }
+        .sentence-refresh { font-size: 0.7rem; color: #8aadcc; cursor: pointer; }
+        .right-header { display: flex; gap: 1.2rem; align-items: center; }
         .time-standalone {
             background: rgba(18, 28, 40, 0.55);
             backdrop-filter: blur(12px);
@@ -87,24 +60,10 @@
             align-items: center;
             gap: 0.8rem;
         }
-        .time-digits {
-            font-family: monospace;
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(135deg, #f0f9ff, #b8dcff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .time-separator {
-            font-size: 1.3rem;
-            animation: pulse 1s infinite;
-        }
+        .time-digits { font-family: monospace; font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, #f0f9ff, #b8dcff); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .time-separator { font-size: 1.3rem; animation: pulse 1s infinite; }
         @keyframes pulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
-        .date-info {
-            font-size: 0.7rem;
-            color: #c0d8ff;
-        }
+        .date-info { font-size: 0.7rem; color: #c0d8ff; }
         .settings-btn {
             background: rgba(18, 28, 40, 0.55);
             backdrop-filter: blur(12px);
@@ -118,12 +77,7 @@
             font-size: 1.4rem;
             border: 1px solid rgba(255,255,255,0.2);
         }
-        .settings-btn:hover {
-            transform: rotate(15deg);
-            background: rgba(50, 70, 95, 0.7);
-        }
-
-        /* 组件网格 */
+        .settings-btn:hover { transform: rotate(15deg); background: rgba(50, 70, 95, 0.7); }
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -138,62 +92,16 @@
             transition: all 0.35s;
             overflow: hidden;
         }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            background: rgba(28, 40, 58, 0.7);
-        }
-        .widget-padding {
-            padding: 1.4rem 1.5rem;
-        }
-        .welcome-stats {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-        .greeting {
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-        .stat-row {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .stat-item {
-            background: rgba(255,255,255,0.08);
-            border-radius: 1.2rem;
-            padding: 0.6rem;
-            flex: 1;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #c6e0ff;
-        }
-        .feature-card {
-            text-align: center;
-            cursor: pointer;
-        }
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-        }
-        .feature-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        .default-card {
-            text-align: center;
-        }
-        .default-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #bfd9ff;
-        }
-
-        /* 独立视图通用样式 */
+        .glass-card:hover { transform: translateY(-5px); background: rgba(28, 40, 58, 0.7); }
+        .widget-padding { padding: 1.4rem 1.5rem; }
+        .welcome-stats { display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
+        .greeting { font-size: 1.4rem; font-weight: 600; }
+        .stat-row { display: flex; gap: 1rem; margin-top: 1rem; }
+        .stat-item { background: rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 0.6rem; flex:1; text-align: center; }
+        .stat-number { font-size: 1.4rem; font-weight: 700; color: #c6e0ff; }
+        .feature-card { text-align: center; cursor: pointer; }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .feature-title { font-weight: 700; font-size: 1.2rem; }
         .detail-view {
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(16px);
@@ -224,14 +132,93 @@
             border-radius: 2rem;
             cursor: pointer;
         }
-
-        /* 影视卡片网格 */
-        .movie-grid {
+        /* 留言板样式 */
+        .guestbook-container { max-width: 900px; margin: 0 auto; }
+        .post-message-area {
+            background: rgba(25, 35, 50, 0.6);
+            border-radius: 1.8rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .input-group input, .input-group textarea {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,215,120,0.5);
+            border-radius: 2rem;
+            padding: 10px 16px;
+            color: white;
+            font-family: inherit;
+            outline: none;
+        }
+        .nickname-input { flex: 1; min-width: 120px; }
+        .content-input { flex: 3; resize: vertical; border-radius: 1.5rem; }
+        .publish-btn {
+            background: #5f8b4c;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.1s;
+        }
+        .publish-btn:active { transform: scale(0.97); }
+        .messages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .message-card {
+            background: rgba(18, 28, 40, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            border-left: 4px solid #ffbc6e;
+            position: relative;
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+        .message-nickname { font-weight: bold; color: #ffdd99; }
+        .message-time { color: #9bb5cf; font-size: 0.7rem; font-family: monospace; }
+        .message-content { font-size: 0.95rem; line-height: 1.4; word-break: break-word; padding-right: 40px; }
+        .delete-msg-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.4);
+            border: none;
+            color: #ff8a7a;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .delete-msg-btn:hover { background: #a12a1a; color: white; }
+        .empty-tip { text-align: center; padding: 2rem; opacity: 0.6; }
+        /* 游戏/影视卡片 */
+        .movie-grid, .game-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 1rem;
         }
-        .movie-card {
+        .movie-card, .game-card {
             background: rgba(25, 35, 50, 0.7);
             border-radius: 1.5rem;
             padding: 1rem;
@@ -239,94 +226,9 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .movie-card:hover {
-            background: rgba(45, 65, 90, 0.8);
-            border-color: #ffb347;
-        }
-        .movie-icon {
-            font-size: 2rem;
-            color: #ffcf8a;
-        }
-
-        /* 游戏卡片网格 */
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1.2rem;
-        }
-        .game-card {
-            background: rgba(25, 35, 50, 0.7);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .game-card:hover {
-            background: rgba(45, 65, 90, 0.8);
-            border-color: #5d9eff;
-            transform: translateY(-3px);
-        }
-        .game-icon {
-            font-size: 2rem;
-            color: #7bc5ff;
-            margin-bottom: 0.5rem;
-        }
-        .game-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.3rem;
-        }
-        .game-desc {
-            font-size: 0.7rem;
-            opacity: 0.7;
-        }
-
-        /* 小工具内容样式 */
-        .tool-content {
-            background: rgba(20, 30, 45, 0.6);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .tool-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #ffd98c;
-        }
-        .tool-description {
-            line-height: 1.6;
-            font-size: 0.95rem;
-            margin-bottom: 1.2rem;
-        }
-        .tool-features {
-            background: rgba(0,0,0,0.3);
-            border-radius: 1rem;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        .tool-features li {
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .tool-link-btn {
-            display: inline-block;
-            background: #2e6a9e;
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 0.5rem;
-            transition: 0.2s;
-        }
-        .tool-link-btn:hover {
-            background: #4f8bc2;
-            transform: translateY(-2px);
-        }
-
-        /* 设置模态框 */
+        .movie-card:hover, .game-card:hover { background: rgba(45, 65, 90, 0.8); transform: translateY(-3px); }
+        .movie-icon, .game-icon { font-size: 2rem; margin-bottom: 0.5rem; color: #ffcf8a; }
+        /* 设置面板 */
         .settings-modal, .password-modal {
             position: fixed;
             top: 0;
@@ -343,10 +245,7 @@
             opacity: 0;
             transition: 0.2s;
         }
-        .settings-modal.active, .password-modal.active {
-            visibility: visible;
-            opacity: 1;
-        }
+        .settings-modal.active, .password-modal.active { visibility: visible; opacity: 1; }
         .settings-panel, .password-panel {
             background: rgba(20, 30, 45, 0.96);
             backdrop-filter: blur(20px);
@@ -358,42 +257,23 @@
             overflow-y: auto;
             border: 1px solid rgba(255,255,255,0.2);
         }
-        .password-panel {
-            max-width: 320px;
-            text-align: center;
-        }
-        .password-panel input {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid #5d7fae;
-            border-radius: 2rem;
-            padding: 0.6rem 1rem;
-            margin: 1rem 0;
-            width: 100%;
-            color: white;
-        }
-        .settings-section {
-            margin-bottom: 1.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 1.2rem;
-        }
-        .wallpaper-presets {
+        .password-panel { max-width: 320px; text-align: center; }
+        .settings-section { margin-bottom: 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.2rem; }
+        .toggle-switch {
             display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
-        .wallpaper-opt {
+            align-items: center;
+            justify-content: space-between;
             background: rgba(0,0,0,0.4);
-            padding: 0.5rem 1rem;
+            padding: 0.7rem 1rem;
             border-radius: 2rem;
-            cursor: pointer;
+            margin-top: 10px;
         }
-        .component-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin: 1rem 0;
-        }
+        .toggle-label { font-weight: 500; }
+        .toggle-checkbox { width: 44px; height: 24px; appearance: none; background: #3a4a5a; border-radius: 30px; position: relative; cursor: pointer; transition: 0.2s; }
+        .toggle-checkbox:checked { background: #5f8b4c; }
+        .toggle-checkbox::before { content: ""; width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 3px; transition: 0.2s; }
+        .toggle-checkbox:checked::before { left: 21px; }
+        .component-list { display: flex; flex-direction: column; gap: 0.8rem; margin: 1rem 0; }
         .component-item {
             background: rgba(255,255,255,0.08);
             border-radius: 1rem;
@@ -404,51 +284,13 @@
             align-items: center;
             gap: 0.8rem;
         }
-        .comp-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-        .comp-actions select, .comp-actions button {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid #5d7fae;
-            border-radius: 1.2rem;
-            padding: 0.3rem 0.7rem;
-            cursor: pointer;
-        }
-        .add-component-area {
-            margin-top: 1rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .add-btn {
-            background: #2e6a9e;
-            border: none;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            cursor: pointer;
-        }
-        .close-settings {
-            background: #3a5e7e;
-            width: 100%;
-            padding: 0.6rem;
-            border-radius: 2rem;
-            border: none;
-            margin-top: 1rem;
-            cursor: pointer;
-        }
-        footer {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.7rem;
-            opacity: 0.5;
-        }
-        @media (max-width: 800px) {
-            body { padding: 1rem; }
-            .bento-grid { gap: 1rem; }
-            .component-item { flex-direction: column; align-items: stretch; }
-        }
+        .comp-actions { display: flex; gap: 0.5rem; align-items: center; }
+        .add-component-area { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+        .add-btn { background: #2e6a9e; border: none; padding: 0.4rem 1rem; border-radius: 2rem; cursor: pointer; }
+        .close-settings { background: #3a5e7e; width: 100%; padding: 0.6rem; border-radius: 2rem; border: none; margin-top: 1rem; cursor: pointer; }
+        .tool-content { background: rgba(20, 30, 45, 0.6); border-radius: 1.5rem; padding: 1.5rem; }
+        footer { margin-top: 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; }
+        @media (max-width: 800px) { body { padding: 1rem; } .bento-grid { gap: 1rem; } }
     </style>
 </head>
 <body id="appBody">
@@ -474,560 +316,211 @@
         </div>
     </div>
 
-    <!-- 主页组件网格 -->
     <div id="mainBentoView" class="bento-grid"></div>
 
-    <!-- 影视大厅独立视图 -->
+    <!-- 影视大厅 -->
     <div id="movieHallView" class="detail-view">
-        <div class="view-header">
-            <h2><i class="fas fa-clapperboard"></i> 影视大厅 · 极速导航</h2>
-            <button class="back-home-btn" id="backFromMovieBtn"><i class="fas fa-home"></i> 返回主页</button>
-        </div>
+        <div class="view-header"><h2><i class="fas fa-clapperboard"></i> 影视大厅 · 极速导航</h2><button class="back-home-btn" id="backFromMovieBtn"><i class="fas fa-home"></i> 返回主页</button></div>
         <div class="movie-grid" id="movieGridContainer"></div>
     </div>
 
-    <!-- 游戏中心独立视图 -->
+    <!-- 游戏中心 (含贪吃蛇小游戏弹窗) -->
     <div id="gameCenterView" class="detail-view">
-        <div class="view-header">
-            <h2><i class="fas fa-gamepad"></i> 游戏中心 · 畅玩一刻</h2>
-            <button class="back-home-btn" id="backFromGameBtn"><i class="fas fa-home"></i> 返回主页</button>
-        </div>
+        <div class="view-header"><h2><i class="fas fa-gamepad"></i> 游戏中心 · 畅玩一刻</h2><button class="back-home-btn" id="backFromGameBtn"><i class="fas fa-home"></i> 返回主页</button></div>
         <div class="game-grid" id="gameGridContainer"></div>
     </div>
 
-    <!-- 实用小工具独立视图 -->
+    <!-- 实用小工具 -->
     <div id="toolsView" class="detail-view">
+        <div class="view-header"><h2><i class="fas fa-toolbox"></i> 实用小工具 · 视频下载</h2><button class="back-home-btn" id="backFromToolsBtn"><i class="fas fa-home"></i> 返回主页</button></div>
+        <div class="tool-content"><div class="tool-title"><i class="fas fa-download"></i> Cobalt.tools</div><div class="tool-description">Cobalt.tools 是一款开源的在线媒体下载工具，旨在为用户提供快速、便捷且无广告的音视频下载体验。
+		支持从 YouTube、Bilibili、Instagram、TikTok 等平台下载，最高 8K 分辨率。
+🔓 开源透明，代码可审查
+🛡️ 不收集数据，隐私安全
+🌐 支持自托管部署
+⚡ 批量下载，无广告</div><a href="https://cobalt.tools" target="_blank" class="tool-link-btn" style="display:inline-block; background:#2e6a9e; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; color:white;">立即打开 →</a></div>
+    </div>
+
+    <!-- 留言板视图 -->
+    <div id="guestbookView" class="detail-view">
         <div class="view-header">
-            <h2><i class="fas fa-toolbox"></i> 实用小工具 · 视频一键下载</h2>
-            <button class="back-home-btn" id="backFromToolsBtn"><i class="fas fa-home"></i> 返回主页</button>
+            <h2><i class="fas fa-comment-dots"></i> 时光留言板 · 心语集</h2>
+            <button class="back-home-btn" id="backFromGuestbookBtn"><i class="fas fa-home"></i> 返回主页</button>
         </div>
-        <div class="tool-content">
-            <div class="tool-title">
-                <i class="fas fa-download"></i> Cobalt.tools
+        <div class="guestbook-container">
+            <div class="post-message-area">
+                <div class="input-group">
+                    <input type="text" id="gbNickname" class="nickname-input" placeholder="昵称 (默认匿名)" maxlength="20">
+                    <textarea id="gbContent" class="content-input" rows="2" placeholder="写下你想说的话... (删除需在设置中开启权限)" maxlength="200"></textarea>
+                    <button id="publishMsgBtn" class="publish-btn">📮 留 言</button>
+                </div>
             </div>
-            <div class="tool-description">
-                Cobalt.tools 是一款开源的在线媒体下载工具，旨在为用户提供快速、便捷且无广告的音视频下载体验。
-                它支持从多个主流平台（如 YouTube、Bilibili、Instagram、TikTok 等）下载视频、音频和图片，提供高达 8K 的视频分辨率和多种音频格式。
-                Cobalt.tools 的界面简洁，无需注册或登录，用户只需粘贴链接即可开始下载。此外，它还提供批量下载、字幕下载和自定义文件名等功能，满足不同用户的个性化需求。
-            </div>
-            <div class="tool-features">
-                <strong>✨ 核心优势：</strong>
-                <ul style="margin-top: 0.5rem;">
-                    <li>🔓 开源透明，代码可审查（GitHub）</li>
-                    <li>🛡️ 不收集数据，无追踪器，隐私安全</li>
-                    <li>🌐 支持网页版 + Docker 自托管部署</li>
-                    <li>⚡ 最高 8K 分辨率，批量下载</li>
-                </ul>
-            </div>
-            <a href="https://cobalt.tools" target="_blank" class="tool-link-btn">
-                <i class="fas fa-external-link-alt"></i> 立即打开 Cobalt.tools
-            </a>
+            <div class="messages-list" id="messagesList"></div>
         </div>
     </div>
 
-    <!-- 密码验证模态框 -->
-    <div id="passwordModal" class="password-modal">
-        <div class="password-panel">
-            <i class="fas fa-lock" style="font-size: 2rem; color: #ffd966;"></i>
-            <h3>设置受保护</h3>
-            <input type="password" id="settingsPassword" placeholder="请输入密码" autocomplete="off">
-            <div style="display: flex; gap: 1rem; justify-content: center;">
-                <button id="submitPasswordBtn" style="background:#2e6a9e; border:none; padding:0.4rem 1.2rem; border-radius:2rem;">确认</button>
-                <button id="cancelPasswordBtn" style="background:#6a4e3e; border:none; padding:0.4rem 1.2rem; border-radius:2rem;">取消</button>
-            </div>
-        </div>
-    </div>
+    <!-- 密码验证 -->
+    <div id="passwordModal" class="password-modal"><div class="password-panel"><i class="fas fa-lock" style="font-size:2rem;"></i><h3>设置受保护</h3><input type="password" id="settingsPassword" placeholder="请输入密码"><div style="display:flex; gap:1rem; justify-content:center;"><button id="submitPasswordBtn">确认</button><button id="cancelPasswordBtn">取消</button></div></div></div>
 
     <!-- 设置面板 -->
     <div id="settingsModal" class="settings-modal">
         <div class="settings-panel">
             <h2><i class="fas fa-sliders-h"></i> 个性化设置</h2>
+            <div class="settings-section"><h3><i class="fas fa-palette"></i> 壁纸设置</h3><div class="wallpaper-presets" style="display:flex; gap:0.8rem; flex-wrap:wrap;"><div class="wallpaper-opt" data-wall="gradient1">🌌 深空星云</div><div class="wallpaper-opt" data-wall="gradient2">🍃 晨雾森林</div><div class="wallpaper-opt" data-wall="gradient3">🌊 极光冰原</div><div class="wallpaper-opt" data-wall="gradient4">🌸 樱花粉黛</div></div><div><input type="text" id="wallpaperUrlInput" placeholder="图片网址" style="background:rgba(0,0,0,0.5); border-radius:2rem; padding:0.4rem;"><button id="applyUrlBtn">应用URL</button></div><div><input type="file" id="uploadImage" accept="image/*"><button id="applyUploadBtn">上传图片</button></div></div>
             <div class="settings-section">
-                <h3><i class="fas fa-palette"></i> 壁纸设置</h3>
-                <div class="wallpaper-presets">
-                    <div class="wallpaper-opt" data-wall="gradient1">🌌 深空星云</div>
-                    <div class="wallpaper-opt" data-wall="gradient2">🍃 晨雾森林</div>
-                    <div class="wallpaper-opt" data-wall="gradient3">🌊 极光冰原</div>
-                    <div class="wallpaper-opt" data-wall="gradient4">🌸 樱花粉黛</div>
+                <h3><i class="fas fa-trash-alt"></i> 留言板删除权限</h3>
+                <div class="toggle-switch">
+                    <span class="toggle-label"><i class="fas fa-lock-open"></i> 允许删除留言 (开启后留言板会显示删除按钮)</span>
+                    <input type="checkbox" id="deletePermissionToggle" class="toggle-checkbox">
                 </div>
-                <div style="display:flex; gap:0.5rem; margin-top:0.5rem;">
-                    <input type="text" id="wallpaperUrlInput" placeholder="图片网址" style="flex:1; background:rgba(0,0,0,0.5); border:1px solid #5d7fae; border-radius:2rem; padding:0.4rem 1rem;">
-                    <button id="applyUrlBtn" style="background:#3a5e7e; border:none; border-radius:2rem; padding:0 1rem;">应用URL</button>
-                </div>
-                <div style="margin-top:8px;">
-                    <input type="file" id="uploadImage" accept="image/*" style="background:rgba(0,0,0,0.5); border:1px solid #5d7fae; border-radius:2rem; padding:0.3rem;">
-                    <button id="applyUploadBtn" style="margin-left:8px; background:#3a5e7e; border:none; border-radius:2rem; padding:0.3rem 1rem;">上传图片</button>
-                </div>
+                <div style="font-size:0.7rem; margin-top:6px;">⚠️ 默认关闭，开启后即可在留言板删除任意留言，关闭后删除按钮隐藏</div>
             </div>
-            <div class="settings-section">
-                <h3><i class="fas fa-th-large"></i> 组件管理</h3>
-                <div id="componentsListContainer" class="component-list"></div>
-                <div class="add-component-area">
-                    <select id="addComponentSelect">
-                        <option value="default_simple">📋 空白备忘录</option>
-                        <option value="default_quote">✨ 励志语录</option>
-                        <option value="default_tool">🛠️ 快捷工具</option>
-                    </select>
-                    <button id="addComponentBtn" class="add-btn">+ 添加组件</button>
-                    <button id="resetDefaultBtn" class="add-btn" style="background:#6a4e3e;">↺ 重置默认组件</button>
-                </div>
-                <div style="font-size:0.7rem; margin-top:0.5rem;">删除组件需密码 000000 | 固定组件（欢迎/影视/游戏/小工具）不可删除</div>
-            </div>
+            <div class="settings-section"><h3><i class="fas fa-th-large"></i> 组件管理</h3><div id="componentsListContainer" class="component-list"></div><div class="add-component-area"><select id="addComponentSelect"><option value="default_simple">📋 空白备忘录</option><option value="default_quote">✨ 励志语录</option><option value="default_tool">🛠️ 快捷工具</option><option value="guestbook">📝 留言板</option></select><button id="addComponentBtn" class="add-btn">+ 添加组件</button><button id="resetDefaultBtn" class="add-btn" style="background:#6a4e3e;">↺ 重置默认组件</button></div><div style="font-size:0.7rem; margin-top:0.5rem;">删除组件需密码 000000 | 固定组件(欢迎/影视/游戏/工具)不可删，留言板组件可删可添</div></div>
             <button class="close-settings" id="closeSettingsBtn">关闭设置</button>
         </div>
     </div>
-    <footer>更多功能等待后续......</footer>
+    <footer>📢 后续更多功能正在开发中......</footer>
 </div>
 
 <script>
-    // ---------- 固定数据 ----------
-    const MOVIE_SITES = [
-        { name: "Omofun", url: "https://omofun01.xyz/", icon: "fa-tv" },
-        { name: "奈飞 (Netflix)", url: "https://www.netflixgc.net/", icon: "fa-film" },
-        { name: "影视网", url: "https://czzyv.com/", icon: "fa-play-circle" },
-        { name: "喵物次元", url: "https://www.mwcy.net/", icon: "fa-paw" },
-        { name: "樱花动漫", url: "https://www.yinhuadm.xyz/", icon: "fa-feather" },
-        { name: "囧次元", url: "https://jocydm.cc/", icon: "fa-laugh-squint" }
-    ];
-
-    const GAME_SITES = [
-        { name: "植物大战僵尸", url: "https://game.moe.ms/", icon: "fa-seedling", desc: "网页版经典塔防，多设备适配，全关卡已存档" },
-        { name: "CS1.6 网页版", url: "https://play-cs.com/zh/servers", icon: "fa-crosshairs", desc: "经典射击游戏，网页直玩" },
-        { name: "Steam学习版游戏下载", url: "https://www.gamer520.com/", icon: "fa-steam", desc: "海量游戏资源，解压即玩" }
-    ];
-
-    // 组件模型
-    let components = [];
-    let nextId = 100;
-    const STORAGE_KEY = 'lingxi_components_gamecenter';
-    const WALLPAPER_KEY = 'user_wallpaper_gamecenter';
-    const FIXED_COMP_IDS = [1, 2, 3, 4]; // 欢迎、影视大厅、游戏中心、实用小工具
-
-    // 预设壁纸
-    const wallpapers = {
-        gradient1: 'radial-gradient(circle at 10% 20%, rgba(10, 20, 35, 1) 0%, rgba(0, 5, 15, 1) 100%)',
-        gradient2: 'linear-gradient(125deg, #0b2b26 0%, #1a3b3a 100%)',
-        gradient3: 'linear-gradient(135deg, #111c2e 0%, #002642 100%)',
-        gradient4: 'linear-gradient(145deg, #2a1b3d 0%, #14102e 100%)'
-    };
-
-    function saveComponents() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(components));
+    // ================= 贪吃蛇小游戏 (独立弹窗) =================
+    const snakeGameHTML = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>贪吃蛇经典版</title><style>*{user-select:none;}body{background:linear-gradient(145deg,#1a472a 0%,#0e2a1a 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;margin:0;padding:16px;}.game-container{background:#0f1f0c;border-radius:48px;padding:20px;max-width:600px;width:100%;}canvas{display:block;margin:0 auto;border-radius:20px;background:#1e2e1a;width:100%;height:auto;}.info-panel{display:flex;justify-content:space-between;margin-top:18px;}.score-box,.best-box{background:#010b05;padding:6px 16px;border-radius:60px;color:#b3ffa7;}.best-box{color:#ffd966;}.status{background:#000000aa;padding:6px 16px;border-radius:40px;color:#eaffd0;}.action-buttons{display:flex;gap:16px;justify-content:center;margin:12px 0;}button{background:#2c4822;border:none;font-weight:bold;padding:8px 28px;border-radius:60px;color:#f5ffea;cursor:pointer;box-shadow:0 5px 0 #0f2a0a;}.mobile-panel{background:#1e2a18cc;border-radius:56px;padding:16px;margin-top:20px;}.dpad{display:flex;flex-direction:column;align-items:center;gap:12px;}.dpad-row{display:flex;justify-content:center;gap:20px;}.ctrl-btn{background:#1f3520;width:70px;height:70px;border-radius:60px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#f5ffdb;box-shadow:0 6px 0 #0a2b0a;cursor:pointer;}@media (max-width:550px){.ctrl-btn{width:60px;height:60px;}}.tip{font-size:0.7rem;background:#1e2a18b3;padding:6px 12px;border-radius:50px;text-align:center;margin-top:14px;}</style></head>
+<body><div class="game-container"><canvas id="snakeCanvas" width="500" height="500"></canvas><div class="info-panel"><div class="score-box">🍎 SCORE <span id="scoreValue">0</span></div><div class="best-box">🏆 BEST <span id="bestValue">0</span></div><div class="status" id="gameStatusText">▶ 游戏中</div></div><div class="action-buttons"><button id="resetButton">🐍 新的一局</button><button id="pauseButton">⏸ 暂停</button></div><div class="mobile-panel"><div class="dpad"><div class="dpad-row"><div class="ctrl-btn" data-dir="UP">▲</div></div><div class="dpad-row"><div class="ctrl-btn" data-dir="LEFT">◀</div><div class="ctrl-btn" data-dir="DOWN">▼</div><div class="ctrl-btn" data-dir="RIGHT">▶</div></div></div><div class="tip">🎮 键盘方向键 / 点按按钮</div></div></div><script>(function(){const G=20,C=25;const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[[10,10],[9,10],[8,10]],food={x:12,y:12},dir='RIGHT',nextDir='RIGHT',score=0,best=0,active=true,win=false,paused=false,iv=null;function loadBest(){let s=localStorage.getItem('snakeBestScore');if(s)best=parseInt(s)||0;document.getElementById('bestValue').innerText=best;}function saveBest(){if(score>best){best=score;localStorage.setItem('snakeBestScore',best);document.getElementById('bestValue').innerText=best;}}function updateUI(){document.getElementById('scoreValue').innerText=score;saveBest();}function stopLoop(){if(iv){clearInterval(iv);iv=null;}}function startLoop(){if(iv)stopLoop();if(active&&!paused)iv=setInterval(tick,150);}function endGame(victory){if(!active)return;active=false;win=victory;paused=false;stopLoop();draw();}function genFood(){let set=new Set();for(let s of snake)set.add(s[0]+','+s[1]);if(set.size>=G*G){endGame(true);return false;}let empty=[];for(let i=0;i<G;i++)for(let j=0;j<G;j++)if(!set.has(i+','+j))empty.push([i,j]);let [fx,fy]=empty[Math.floor(Math.random()*empty.length)];food={x:fx,y:fy};return true;}function reset(){stopLoop();active=true;win=false;paused=false;snake=[[10,10],[9,10],[8,10]];dir='RIGHT';nextDir='RIGHT';score=0;updateUI();let set2=new Set();for(let s of snake)set2.add(s[0]+','+s[1]);let free=[];for(let i=0;i<G;i++)for(let j=0;j<G;j++)if(!set2.has(i+','+j))free.push([i,j]);if(free.length){let [fx,fy]=free[Math.floor(Math.random()*free.length)];food={x:fx,y:fy};}else food={x:5,y:5};draw();startLoop();}function togglePause(){if(!active)return;paused=!paused;if(paused)stopLoop();else startLoop();draw();}function setDirection(d){if(!active||paused)return;const op={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'};if(op[d]===dir)return;nextDir=d;}function move(){if(!active)return false;let nd=nextDir;const op={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'};if(op[nd]===dir)nd=dir;dir=nd;let h=snake[0];let nh=[...h];if(dir==='RIGHT')nh[0]+=1;else if(dir==='LEFT')nh[0]-=1;else if(dir==='UP')nh[1]-=1;else if(dir==='DOWN')nh[1]+=1;if(nh[0]<0||nh[0]>=G||nh[1]<0||nh[1]>=G){endGame(false);return false;}let willEat=(nh[0]===food.x&&nh[1]===food.y);let ns=[nh,...snake];if(!willEat)ns.pop();let headPos=ns[0];let self=ns.slice(1).some(s=>s[0]===headPos[0]&&s[1]===headPos[1]);if(self){endGame(false);return false;}snake=ns;if(willEat){score+=10;updateUI();if(!genFood())return false;}return true;}function tick(){if(!active||paused)return;move();draw();}function draw(){ctx.fillStyle='#1f3120';ctx.fillRect(0,0,canvas.width,canvas.height);for(let i=0;i<=G;i++){ctx.beginPath();ctx.moveTo(i*C,0);ctx.lineTo(i*C,canvas.height);ctx.stroke();ctx.moveTo(0,i*C);ctx.lineTo(canvas.width,i*C);ctx.stroke();}let fx=food.x*C,fy=food.y*C;ctx.fillStyle='#ff5252';ctx.beginPath();ctx.arc(fx+C/2,fy+C/2,C/2-2,0,Math.PI*2);ctx.fill();for(let i=0;i<snake.length;i++){let [sx,sy]=snake[i];let x=sx*C,y=sy*C;if(i===0){ctx.fillStyle='#6ab04c';ctx.fillRect(x+1,y+1,C-2,C-2);ctx.fillStyle='#fff';if(dir==='RIGHT'){ctx.arc(x+C-7,y+7,3,0,Math.PI*2);ctx.arc(x+C-7,y+C-8,3,0,Math.PI*2);}else if(dir==='LEFT'){ctx.arc(x+7,y+7,3,0,Math.PI*2);ctx.arc(x+7,y+C-8,3,0,Math.PI*2);}else if(dir==='UP'){ctx.arc(x+7,y+7,3,0,Math.PI*2);ctx.arc(x+C-8,y+7,3,0,Math.PI*2);}else{ctx.arc(x+7,y+C-8,3,0,Math.PI*2);ctx.arc(x+C-8,y+C-8,3,0,Math.PI*2);}ctx.fill();}else{ctx.fillStyle='#589e3c';ctx.fillRect(x+1,y+1,C-2,C-2);}}if(!active){ctx.fillStyle='rgba(0,0,0,0.82)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.font='bold 24px monospace';ctx.fillStyle=win?'#ffe484':'#ffb347';let msg=win?'✨ 胜 利 ！ ✨':'💀 游 戏 结 束 💀';ctx.fillText(msg,canvas.width/2-ctx.measureText(msg).width/2,canvas.height/2-20);}else if(paused){ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.font='bold 28px monospace';ctx.fillStyle='#d4ffb0';ctx.fillText('⏸ 暂 停 中',canvas.width/2-ctx.measureText('⏸ 暂 停 中').width/2,canvas.height/2);}}window.addEventListener('keydown',e=>{let nd=null;if(e.key==='ArrowUp')nd='UP';else if(e.key==='ArrowDown')nd='DOWN';else if(e.key==='ArrowLeft')nd='LEFT';else if(e.key==='ArrowRight')nd='RIGHT';if(nd){e.preventDefault();setDirection(nd);}});document.querySelectorAll('.ctrl-btn').forEach(btn=>{let d=btn.getAttribute('data-dir');if(d)btn.addEventListener('click',()=>setDirection(d));});document.getElementById('resetButton').addEventListener('click',reset);document.getElementById('pauseButton').addEventListener('click',togglePause);loadBest();reset();})();<\/script></body></html>`;
+    let snakeBlobUrl = null;
+    function showSnakeGameModal() {
+        if(snakeBlobUrl) URL.revokeObjectURL(snakeBlobUrl);
+        const blob = new Blob([snakeGameHTML], { type: 'text/html' });
+        snakeBlobUrl = URL.createObjectURL(blob);
+        const modalDiv = document.createElement('div');
+        modalDiv.className = 'snake-modal';
+        modalDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:10000;';
+        modalDiv.innerHTML = `<div style="background:rgba(15,25,20,0.96);border-radius:2.5rem;width:95%;max-width:620px;padding:1rem;border:1px solid #ffd878;"><div style="display:flex;justify-content:space-between;align-items:center;padding:0 0.8rem 0.6rem;"><h3 style="color:#ffdd99;"><i class="fas fa-snake"></i> 贪吃蛇·经典小游戏</h3><button id="closeSnakeModal" style="background:transparent;border:none;font-size:1.8rem;cursor:pointer;color:#ffbc6e;">&times;</button></div><iframe src="${snakeBlobUrl}" style="width:100%;min-height:560px;border:none;border-radius:1.5rem;"></iframe></div>`;
+        document.body.appendChild(modalDiv);
+        const close = () => { modalDiv.remove(); if(snakeBlobUrl) URL.revokeObjectURL(snakeBlobUrl); };
+        modalDiv.querySelector('#closeSnakeModal').addEventListener('click', close);
+        modalDiv.addEventListener('click', (e) => { if(e.target === modalDiv) close(); });
     }
-
+    // ========== 原有灵犀空间逻辑 (保留影视/游戏/工具/组件管理/壁纸等) ==========
+    const MOVIE_SITES = [{ name: "Omofun", url: "https://omofun01.xyz/", icon: "fa-tv" },{ name: "奈飞 (Netflix)", url: "https://www.netflixgc.net/", icon: "fa-film" },{ name: "影视网", url: "https://czzyv.com/", icon: "fa-play-circle" },{ name: "喵物次元", url: "https://www.mwcy.net/", icon: "fa-paw" },{ name: "樱花动漫", url: "https://www.yinhuadm.xyz/", icon: "fa-feather" },{ name: "囧次元", url: "https://jocydm.cc/", icon: "fa-laugh-squint" }];
+    const GAME_SITES = [{ name: "植物大战僵尸", url: "https://game.moe.ms/", icon: "fa-seedling", desc: "经典塔防网页版" },{ name: "CS1.6 网页版", url: "https://play-cs.com/zh/servers", icon: "fa-crosshairs", desc: "射击经典" },{ name: "Steam学习版", url: "https://www.gamer520.com/", icon: "fa-steam", desc: "海量游戏资源" }];
+    let components = [], nextId = 100;
+    const STORAGE_KEY = 'lingxi_components_gamecenter', WALLPAPER_KEY = 'user_wallpaper_gamecenter';
+    const FIXED_COMP_IDS = [1,2,3,4];
+    const wallpapers = { gradient1: 'radial-gradient(circle at 10% 20%, rgba(10, 20, 35, 1) 0%, rgba(0, 5, 15, 1) 100%)', gradient2: 'linear-gradient(125deg, #0b2b26 0%, #1a3b3a 100%)', gradient3: 'linear-gradient(135deg, #111c2e 0%, #002642 100%)', gradient4: 'linear-gradient(145deg, #2a1b3d 0%, #14102e 100%)' };
+    function saveComponents() { localStorage.setItem(STORAGE_KEY, JSON.stringify(components)); }
     function loadComponents() {
         const stored = localStorage.getItem(STORAGE_KEY);
-        if(stored) {
-            components = JSON.parse(stored);
-            // 确保固定组件存在
-            const hasWelcome = components.some(c => c.id === 1);
-            const hasMovie = components.some(c => c.id === 2);
-            const hasGame = components.some(c => c.id === 3);
-            const hasTools = components.some(c => c.id === 4);
-            if(!hasWelcome) components.unshift({ id: 1, type: 'welcome', title: '欢迎卡片', span: 5, order: 1, visible: true });
-            if(!hasMovie) components.push({ id: 2, type: 'movie', title: '影视大厅', span: 4, order: components.length+1, visible: true });
-            if(!hasGame) components.push({ id: 3, type: 'gamecenter', title: '游戏中心', span: 3, order: components.length+1, visible: true });
-            if(!hasTools) components.push({ id: 4, type: 'tools', title: '实用小工具', span: 4, order: components.length+1, visible: true });
+        if(stored) { components = JSON.parse(stored);
+            if(!components.some(c=>c.id===1)) components.unshift({id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true});
+            if(!components.some(c=>c.id===2)) components.push({id:2,type:'movie',title:'影视大厅',span:4,order:components.length+1,visible:true});
+            if(!components.some(c=>c.id===3)) components.push({id:3,type:'gamecenter',title:'游戏中心',span:3,order:components.length+1,visible:true});
+            if(!components.some(c=>c.id===4)) components.push({id:4,type:'tools',title:'实用小工具',span:4,order:components.length+1,visible:true});
+            if(!components.some(c=>c.type==='guestbook')) components.push({id:5,type:'guestbook',title:'📝 留言板',span:4,order:components.length+1,visible:true});
             components.sort((a,b)=>a.order-b.order);
-            let idx = 1;
-            components.forEach(c => { if(c.visible) c.order = idx++; });
-            nextId = Math.max(...components.map(c=>c.id), 99) + 1;
+            nextId = Math.max(...components.map(c=>c.id),99)+1;
             saveComponents();
         } else {
             components = [
-                { id: 1, type: 'welcome', title: '欢迎卡片', span: 5, order: 1, visible: true },
-                { id: 2, type: 'movie', title: '影视大厅', span: 4, order: 2, visible: true },
-                { id: 3, type: 'gamecenter', title: '游戏中心', span: 3, order: 3, visible: true },
-                { id: 4, type: 'tools', title: '实用小工具', span: 4, order: 4, visible: true }
+                {id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true},
+                {id:2,type:'movie',title:'影视大厅',span:4,order:2,visible:true},
+                {id:3,type:'gamecenter',title:'游戏中心',span:3,order:3,visible:true},
+                {id:4,type:'tools',title:'实用小工具',span:4,order:4,visible:true},
+                {id:5,type:'guestbook',title:'📝 留言板',span:4,order:5,visible:true}
             ];
-            nextId = 5;
-            saveComponents();
+            nextId=6; saveComponents();
         }
     }
-
     function resetToDefault() {
         components = [
-            { id: 1, type: 'welcome', title: '欢迎卡片', span: 5, order: 1, visible: true },
-            { id: 2, type: 'movie', title: '影视大厅', span: 4, order: 2, visible: true },
-            { id: 3, type: 'gamecenter', title: '游戏中心', span: 3, order: 3, visible: true },
-            { id: 4, type: 'tools', title: '实用小工具', span: 4, order: 4, visible: true }
+            {id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true},
+            {id:2,type:'movie',title:'影视大厅',span:4,order:2,visible:true},
+            {id:3,type:'gamecenter',title:'游戏中心',span:3,order:3,visible:true},
+            {id:4,type:'tools',title:'实用小工具',span:4,order:4,visible:true},
+            {id:5,type:'guestbook',title:'📝 留言板',span:4,order:5,visible:true}
         ];
-        nextId = 5;
-        saveComponents();
-        renderGrid();
-        renderComponentManager();
+        nextId=6; saveComponents(); renderGrid(); renderComponentManager();
     }
-
-    // 渲染主网格
     function renderGrid() {
-        const grid = document.getElementById('mainBentoView');
-        if(!grid) return;
-        const visible = components.filter(c => c.visible).sort((a,b)=>a.order-b.order);
+        const grid = document.getElementById('mainBentoView'); if(!grid) return;
+        const visible = components.filter(c=>c.visible).sort((a,b)=>a.order-b.order);
         grid.innerHTML = '';
         for(let comp of visible) {
-            const card = document.createElement('div');
-            card.className = 'glass-card';
-            card.style.gridColumn = `span ${comp.span}`;
-            if(comp.type === 'welcome') {
-                card.innerHTML = `
-                    <div class="widget-padding welcome-stats">
-                        <div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">组件化·毛玻璃·自定义壁纸</div></div>
-                        <div class="stat-row">
-                            <div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div>
-                            <div class="stat-item"><div class="stat-number">影视</div><div>六站直达</div></div>
-                            <div class="stat-item"><div class="stat-number">游戏</div><div>三站畅玩</div></div>
-                        </div>
-                    </div>
-                `;
-            } else if(comp.type === 'movie') {
-                card.innerHTML = `
-                    <div class="widget-padding feature-card" data-movie-entrance="true">
-                        <i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i>
-                        <div class="feature-title">🎬 影视大厅</div>
-                        <div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div>
-                    </div>
-                `;
-                card.querySelector('[data-movie-entrance="true"]')?.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    showMovieHall();
-                });
-            } else if(comp.type === 'gamecenter') {
-                card.innerHTML = `
-                    <div class="widget-padding feature-card" data-game-entrance="true">
-                        <i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i>
-                        <div class="feature-title">🎮 游戏中心</div>
-                        <div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div>
-                    </div>
-                `;
-                card.querySelector('[data-game-entrance="true"]')?.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    showGameCenter();
-                });
-            } else if(comp.type === 'tools') {
-                card.innerHTML = `
-                    <div class="widget-padding feature-card" data-tools-entrance="true">
-                        <i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i>
-                        <div class="feature-title">🛠️ 实用小工具</div>
-                        <div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频一键下载</div>
-                    </div>
-                `;
-                card.querySelector('[data-tools-entrance="true"]')?.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    showToolsView();
-                });
-            } else {
-                let icon = 'fa-puzzle-piece';
-                if(comp.type === 'default_simple') icon = 'fa-pen-fancy';
-                if(comp.type === 'default_quote') icon = 'fa-quote-right';
-                if(comp.type === 'default_tool') icon = 'fa-tools';
-                card.innerHTML = `
-                    <div class="widget-padding default-card">
-                        <div class="default-icon"><i class="fas ${icon}"></i></div>
-                        <div class="feature-title">${escapeHtml(comp.title)}</div>
-                        <div style="font-size:0.75rem; margin-top:6px;">${comp.customDesc || '可调整大小/顺序'}</div>
-                    </div>
-                `;
-            }
+            const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`;
+            if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">更多功能可在留言板提议</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`;
+            else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
+            else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
+            else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载</div></div>`;
+            else if(comp.type === 'guestbook') card.innerHTML = `<div class="widget-padding feature-card" data-guestbook-entrance="true"><i class="fas fa-comment-dots feature-icon" style="color:#ffbc8c;"></i><div class="feature-title">📝 时光留言板</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 记录心语</div></div>`;
+            else { let icon=(comp.type==='default_simple'?'fa-pen-fancy':(comp.type==='default_quote'?'fa-quote-right':'fa-tools')); card.innerHTML = `<div class="widget-padding default-card"><div class="default-icon"><i class="fas ${icon}"></i></div><div class="feature-title">${escapeHtml(comp.title)}</div><div style="font-size:0.75rem;">${comp.customDesc||''}</div></div>`; }
             grid.appendChild(card);
         }
+        document.querySelectorAll('[data-movie-entrance]').forEach(el=>el.addEventListener('click',()=>showMovieHall()));
+        document.querySelectorAll('[data-game-entrance]').forEach(el=>el.addEventListener('click',()=>showGameCenter()));
+        document.querySelectorAll('[data-tools-entrance]').forEach(el=>el.addEventListener('click',()=>showToolsView()));
+        document.querySelectorAll('[data-guestbook-entrance]').forEach(el=>el.addEventListener('click',()=>showGuestbookView()));
     }
-
-    // 视图控制
-    const mainBentoDiv = document.getElementById('mainBentoView');
-    const movieHallDiv = document.getElementById('movieHallView');
-    const gameCenterDiv = document.getElementById('gameCenterView');
-    const toolsViewDiv = document.getElementById('toolsView');
-
-    function showMovieHall() {
-        mainBentoDiv.style.display = 'none';
-        movieHallDiv.style.display = 'block';
-        gameCenterDiv.style.display = 'none';
-        toolsViewDiv.style.display = 'none';
-        renderMovieGrid();
+    function showMovieHall(){ hideAllViews(); document.getElementById('movieHallView').style.display='block'; renderMovieGrid(); }
+    function showGameCenter(){ hideAllViews(); document.getElementById('gameCenterView').style.display='block'; renderGameGrid(); }
+    function showToolsView(){ hideAllViews(); document.getElementById('toolsView').style.display='block'; }
+    function showGuestbookView(){ hideAllViews(); document.getElementById('guestbookView').style.display='block'; renderGuestbookMessages(); }
+    function showHome(){ hideAllViews(); document.getElementById('mainBentoView').style.display='grid'; }
+    function hideAllViews(){ document.getElementById('mainBentoView').style.display='none'; document.getElementById('movieHallView').style.display='none'; document.getElementById('gameCenterView').style.display='none'; document.getElementById('toolsView').style.display='none'; document.getElementById('guestbookView').style.display='none'; }
+    function renderMovieGrid(){ const c=document.getElementById('movieGridContainer'); if(c) c.innerHTML=MOVIE_SITES.map(s=>`<div class="movie-card"><div class="movie-icon"><i class="fas ${s.icon}"></i></div><div class="movie-title">${escapeHtml(s.name)}</div></div>`).join(''); document.querySelectorAll('.movie-card').forEach((card,i)=>card.addEventListener('click',()=>window.open(MOVIE_SITES[i].url,'_blank'))); }
+    function renderGameGrid(){ const c=document.getElementById('gameGridContainer'); if(c) c.innerHTML=GAME_SITES.map(g=>`<div class="game-card" data-game="${g.name}"><div class="game-icon"><i class="fab ${g.icon}"></i></div><div class="game-title">${escapeHtml(g.name)}</div><div class="game-desc">${escapeHtml(g.desc)}</div></div>`).join('') + `<div class="game-card" id="miniSnakeGameCard"><div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗游玩</div></div>`; document.querySelectorAll('.game-card:not(#miniSnakeGameCard)').forEach((card,i)=>card.addEventListener('click',()=>window.open(GAME_SITES[i].url,'_blank'))); document.getElementById('miniSnakeGameCard')?.addEventListener('click',()=>showSnakeGameModal()); }
+    function renderComponentManager() { /* 完整组件管理代码保留原有交互，此处精简但保证可用 */ const container=document.getElementById('componentsListContainer'); if(!container) return; const sorted=[...components].sort((a,b)=>a.order-b.order); container.innerHTML=sorted.map(comp=>`<div class="component-item"><span><i class="fas ${comp.type==='welcome'?'fa-star':comp.type==='movie'?'fa-film':comp.type==='gamecenter'?'fa-gamepad':comp.type==='tools'?'fa-toolbox':comp.type==='guestbook'?'fa-comment-dots':'fa-cube'}"></i> ${escapeHtml(comp.title||comp.type)}</span><div class="comp-actions"><select class="size-select" data-id="${comp.id}" ${FIXED_COMP_IDS.includes(comp.id)?'disabled':''}>${[1,2,3,4,5,6,7,8,9,10,11,12].map(s=>`<option value="${s}" ${comp.span==s?'selected':''}>宽度 ${s}/12</option>`).join('')}</select><button class="move-up" data-id="${comp.id}" ${comp.order===1?'disabled':''}>↑</button><button class="move-down" data-id="${comp.id}" ${comp.order===sorted.length?'disabled':''}>↓</button>${!FIXED_COMP_IDS.includes(comp.id)?`<button class="delete-comp" data-id="${comp.id}" data-name="${escapeHtml(comp.title)}">🗑️</button>`:'<span style="font-size:0.7rem;">固定组件</span>'}</div></div>`).join('');
+        document.querySelectorAll('.size-select').forEach(sel=>sel.addEventListener('change',(e)=>{ let id=parseInt(sel.dataset.id), ns=parseInt(sel.value), cp=components.find(c=>c.id===id); if(cp){ cp.span=ns; saveComponents(); renderGrid(); } }));
+        document.querySelectorAll('.move-up').forEach(btn=>btn.addEventListener('click',()=>{ let id=parseInt(btn.dataset.id), idx=components.findIndex(c=>c.id===id); if(idx>0){ [components[idx].order,components[idx-1].order]=[components[idx-1].order,components[idx].order]; components.sort((a,b)=>a.order-b.order); saveComponents(); renderGrid(); renderComponentManager(); } }));
+        document.querySelectorAll('.move-down').forEach(btn=>btn.addEventListener('click',()=>{ let id=parseInt(btn.dataset.id), idx=components.findIndex(c=>c.id===id); if(idx<components.length-1){ [components[idx].order,components[idx+1].order]=[components[idx+1].order,components[idx].order]; components.sort((a,b)=>a.order-b.order); saveComponents(); renderGrid(); renderComponentManager(); } }));
+        document.querySelectorAll('.delete-comp').forEach(btn=>btn.addEventListener('click',async()=>{ let id=parseInt(btn.dataset.id), name=btn.dataset.name; if(FIXED_COMP_IDS.includes(id)) return; let pwd=prompt(`删除组件“${name}”需要密码:`); if(pwd==='000000'){ let idx=components.findIndex(c=>c.id===id); if(idx!==-1){ components.splice(idx,1); components.forEach((c,i)=>c.order=i+1); saveComponents(); renderGrid(); renderComponentManager(); } } else alert('密码错误'); }));
     }
-    function showGameCenter() {
-        mainBentoDiv.style.display = 'none';
-        movieHallDiv.style.display = 'none';
-        gameCenterDiv.style.display = 'block';
-        toolsViewDiv.style.display = 'none';
-        renderGameGrid();
+    function addComponent(type){ let title='',customDesc=''; if(type==='default_simple'){ title='空白备忘录'; customDesc='记录灵感'; }else if(type==='default_quote'){ title='励志语录'; customDesc='每日一句'; }else if(type==='default_tool'){ title='快捷工具'; customDesc='轻量工具'; }else if(type==='guestbook'){ title='📝 留言板'; customDesc='留下时光印记'; } components.push({ id:nextId++, type, title, span:4, order:components.filter(c=>c.visible).length+1, visible:true, customDesc }); saveComponents(); renderGrid(); renderComponentManager(); }
+    function setWallpaper(value, isUrl=false){ const body=document.getElementById('appBody'); if(isUrl && value){ body.style.background=`url(${value}) center/cover no-repeat fixed`; localStorage.setItem(WALLPAPER_KEY, JSON.stringify({type:'url',url:value})); }else if(wallpapers[value]){ body.style.background=wallpapers[value]; localStorage.setItem(WALLPAPER_KEY, JSON.stringify({type:'preset',key:value})); } }
+    function loadSavedWallpaper(){ const saved=localStorage.getItem(WALLPAPER_KEY); if(saved){ try{ const data=JSON.parse(saved); if(data.type==='url'&&data.url) setWallpaper(data.url, true); else if(data.type==='preset'&&wallpapers[data.key]) setWallpaper(data.key); else setWallpaper('gradient1'); }catch(e){ setWallpaper('gradient1'); } } else setWallpaper('gradient1'); }
+    async function fetchSentence(){ try{ const res=await fetch('https://v1.hitokoto.cn/?encode=json&c=f'); const data=await res.json(); let text=data.hitokoto||'心之所向，素履以往'; if(data.from) text+=` ——「${data.from}」`; document.getElementById('sentenceText').innerText=text; }catch(e){ document.getElementById('sentenceText').innerText='行到水穷处，坐看云起时。'; } }
+    function updateTime(){ const now=new Date(); document.getElementById('liveHour').innerText=now.getHours().toString().padStart(2,'0'); document.getElementById('liveMinute').innerText=now.getMinutes().toString().padStart(2,'0'); document.getElementById('liveSecond').innerText=now.getSeconds().toString().padStart(2,'0'); document.getElementById('liveDateCn').innerText=now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'}); }
+    function escapeHtml(str){ return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+    // 留言板核心 (保留原有不可删除特性，除非开启权限)
+    let guestbookMessages = [];
+    const GB_STORAGE = 'lingxi_guestbook_msgs';
+    const PERMISSION_KEY = 'guestbook_delete_permission';
+    function getBeijingTimeString(){ const now=new Date(); return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`; }
+    function loadMessages(){ const stored=localStorage.getItem(GB_STORAGE); if(stored){ try{ guestbookMessages=JSON.parse(stored); }catch(e){ guestbookMessages=[]; } } else { guestbookMessages=[{ id:Date.now()+1, nickname:"灵犀", content:"欢迎来到时光留言板，开启删除权限后可以删除留言。", timestamp:getBeijingTimeString() }]; saveMessages(); } guestbookMessages.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp)); }
+    function saveMessages(){ localStorage.setItem(GB_STORAGE, JSON.stringify(guestbookMessages)); }
+    function addMessage(nickname, content){ if(!content.trim()){ alert("留言内容不能为空"); return false; } const newMsg={ id:Date.now(), nickname:nickname.trim()===""?"匿名访客":nickname.trim().substring(0,20), content:content.trim().substring(0,200), timestamp:getBeijingTimeString() }; guestbookMessages.unshift(newMsg); saveMessages(); renderGuestbookMessages(); return true; }
+    function deleteMessageById(msgId){ if(!getDeletePermission()){ alert("删除权限未开启！请前往 右上角设置 → 留言板删除权限 开启后再试。"); return false; } const idx=guestbookMessages.findIndex(m=>m.id==msgId); if(idx!==-1){ guestbookMessages.splice(idx,1); saveMessages(); renderGuestbookMessages(); return true; } return false; }
+    function getDeletePermission(){ return localStorage.getItem(PERMISSION_KEY)==='true'; }
+    function setDeletePermission(enable){ localStorage.setItem(PERMISSION_KEY, enable?'true':'false'); if(document.getElementById('guestbookView').style.display==='block') renderGuestbookMessages(); }
+    function renderGuestbookMessages(){ const container=document.getElementById('messagesList'); if(!container) return; const canDelete=getDeletePermission(); if(guestbookMessages.length===0){ container.innerHTML='<div class="empty-tip">✨ 还没有留言，写点温暖的话吧～</div>'; return; } container.innerHTML=guestbookMessages.map(msg=>`<div class="message-card" data-msg-id="${msg.id}"><div class="message-header"><span class="message-nickname"><i class="fas fa-user-circle"></i> ${escapeHtml(msg.nickname)}</span><span class="message-time"><i class="far fa-clock"></i> ${escapeHtml(msg.timestamp)}</span></div><div class="message-content">${escapeHtml(msg.content)}</div>${canDelete?`<button class="delete-msg-btn" data-id="${msg.id}" title="删除留言"><i class="fas fa-trash-alt"></i></button>`:''}</div>`).join('');
+        if(canDelete) document.querySelectorAll('.delete-msg-btn').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); const id=parseInt(btn.getAttribute('data-id')); if(confirm('确定删除这条留言吗？')) deleteMessageById(id); }));
     }
-    function showToolsView() {
-        mainBentoDiv.style.display = 'none';
-        movieHallDiv.style.display = 'none';
-        gameCenterDiv.style.display = 'none';
-        toolsViewDiv.style.display = 'block';
-    }
-    function showHome() {
-        mainBentoDiv.style.display = 'grid';
-        movieHallDiv.style.display = 'none';
-        gameCenterDiv.style.display = 'none';
-        toolsViewDiv.style.display = 'none';
-    }
-
-    function renderMovieGrid() {
-        const container = document.getElementById('movieGridContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        MOVIE_SITES.forEach(site => {
-            let iconClass = site.icon;
-            if(iconClass === 'fa-netflix') iconClass = 'fa-film';
-            const card = document.createElement('div');
-            card.className = 'movie-card';
-            card.innerHTML = `<div class="movie-icon"><i class="fas ${iconClass}"></i></div><div class="movie-title">${escapeHtml(site.name)}</div>`;
-            card.addEventListener('click', () => window.open(site.url, '_blank'));
-            container.appendChild(card);
-        });
-    }
-
-    function renderGameGrid() {
-        const container = document.getElementById('gameGridContainer');
-        if(!container) return;
-        container.innerHTML = '';
-        GAME_SITES.forEach(game => {
-            const card = document.createElement('div');
-            card.className = 'game-card';
-            let iconClass = game.icon;
-            if(game.name === "Steam学习版游戏下载") iconClass = 'fa-steam';
-            card.innerHTML = `
-                <div class="game-icon"><i class="fab ${iconClass}"></i></div>
-                <div class="game-title">${escapeHtml(game.name)}</div>
-                <div class="game-desc">${escapeHtml(game.desc)}</div>
-            `;
-            card.addEventListener('click', () => window.open(game.url, '_blank'));
-            container.appendChild(card);
-        });
-    }
-
+    // 设置面板监听
+    document.getElementById('deletePermissionToggle')?.addEventListener('change',(e)=>setDeletePermission(e.target.checked));
+    document.getElementById('publishMsgBtn')?.addEventListener('click',()=>{ const nick=document.getElementById('gbNickname').value, cont=document.getElementById('gbContent').value; if(addMessage(nick,cont)){ document.getElementById('gbContent').value=''; document.getElementById('gbNickname').value=''; } });
+    // 密码逻辑及UI绑定
+    const passwordModal=document.getElementById('passwordModal'), settingsModal=document.getElementById('settingsModal'), openSettingsBtn=document.getElementById('openSettingsBtn'), submitPwdBtn=document.getElementById('submitPasswordBtn'), cancelPwdBtn=document.getElementById('cancelPasswordBtn'), pwdInput=document.getElementById('settingsPassword'), closeSettingsBtn=document.getElementById('closeSettingsBtn');
+    function openPasswordModal(){ pwdInput.value=''; passwordModal.classList.add('active'); }
+    function closePasswordModal(){ passwordModal.classList.remove('active'); }
+    function openSettingsPanel(){ settingsModal.classList.add('active'); renderComponentManager(); const toggle=document.getElementById('deletePermissionToggle'); if(toggle) toggle.checked=getDeletePermission(); }
+    function closeSettingsPanel(){ settingsModal.classList.remove('active'); }
+    openSettingsBtn.addEventListener('click', openPasswordModal);
+    submitPwdBtn.addEventListener('click',()=>{ if(pwdInput.value==='000000'){ closePasswordModal(); openSettingsPanel(); }else{ alert('密码错误！'); pwdInput.value=''; } });
+    cancelPwdBtn.addEventListener('click', closePasswordModal);
+    closeSettingsBtn.addEventListener('click', closeSettingsPanel);
     document.getElementById('backFromMovieBtn')?.addEventListener('click', showHome);
     document.getElementById('backFromGameBtn')?.addEventListener('click', showHome);
     document.getElementById('backFromToolsBtn')?.addEventListener('click', showHome);
-
-    // 组件管理渲染（设置面板内）
-    function renderComponentManager() {
-        const container = document.getElementById('componentsListContainer');
-        if(!container) return;
-        const sorted = [...components].sort((a,b)=>a.order-b.order);
-        container.innerHTML = '';
-        sorted.forEach(comp => {
-            const isFixed = FIXED_COMP_IDS.includes(comp.id);
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'component-item';
-            let typeIcon = 'fa-cube';
-            if(comp.type === 'welcome') typeIcon = 'fa-star';
-            else if(comp.type === 'movie') typeIcon = 'fa-film';
-            else if(comp.type === 'gamecenter') typeIcon = 'fa-gamepad';
-            else if(comp.type === 'tools') typeIcon = 'fa-toolbox';
-            itemDiv.innerHTML = `
-                <span><i class="fas ${typeIcon}"></i> ${escapeHtml(comp.title || comp.type)}</span>
-                <div class="comp-actions">
-                    <select class="size-select" data-id="${comp.id}" ${isFixed ? 'disabled' : ''}>
-                        ${[1,2,3,4,5,6,7,8,9,10,11,12].map(s => `<option value="${s}" ${comp.span==s?'selected':''}>宽度 ${s}/12</option>`).join('')}
-                    </select>
-                    <button class="move-up" data-id="${comp.id}" ${comp.order===1 ? 'disabled' : ''}>↑</button>
-                    <button class="move-down" data-id="${comp.id}" ${comp.order===sorted.length ? 'disabled' : ''}>↓</button>
-                    ${!isFixed ? `<button class="delete-comp" data-id="${comp.id}" data-name="${escapeHtml(comp.title)}">🗑️</button>` : '<span style="font-size:0.7rem;">固定组件</span>'}
-                </div>
-            `;
-            container.appendChild(itemDiv);
-        });
-
-        document.querySelectorAll('.size-select').forEach(sel => {
-            sel.addEventListener('change', (e) => {
-                const id = parseInt(sel.dataset.id);
-                const newSpan = parseInt(sel.value);
-                const comp = components.find(c=>c.id===id);
-                if(comp) { comp.span = newSpan; saveComponents(); renderGrid(); }
-            });
-        });
-        document.querySelectorAll('.move-up').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = parseInt(btn.dataset.id);
-                const idx = components.findIndex(c=>c.id===id);
-                if(idx>0) {
-                    [components[idx].order, components[idx-1].order] = [components[idx-1].order, components[idx].order];
-                    components.sort((a,b)=>a.order-b.order);
-                    saveComponents(); renderGrid(); renderComponentManager();
-                }
-            });
-        });
-        document.querySelectorAll('.move-down').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = parseInt(btn.dataset.id);
-                const idx = components.findIndex(c=>c.id===id);
-                if(idx<components.length-1) {
-                    [components[idx].order, components[idx+1].order] = [components[idx+1].order, components[idx].order];
-                    components.sort((a,b)=>a.order-b.order);
-                    saveComponents(); renderGrid(); renderComponentManager();
-                }
-            });
-        });
-        document.querySelectorAll('.delete-comp').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const id = parseInt(btn.dataset.id);
-                const name = btn.dataset.name;
-                if(FIXED_COMP_IDS.includes(id)) return;
-                const pwd = prompt(`删除组件“${name}”需要输入密码:`);
-                if(pwd === '000000') {
-                    const idx = components.findIndex(c=>c.id===id);
-                    if(idx !== -1) {
-                        components.splice(idx,1);
-                        components.forEach((c,i)=>c.order=i+1);
-                        saveComponents(); renderGrid(); renderComponentManager();
-                    }
-                } else alert('密码错误，删除失败');
-            });
-        });
-    }
-
-    // 添加自定义组件
-    function addComponent(type) {
-        let title = '', customDesc = '';
-        if(type === 'default_simple') { title = '空白备忘录'; customDesc = '记录灵感碎片'; }
-        else if(type === 'default_quote') { title = '励志语录'; customDesc = '每天进步一点点'; }
-        else if(type === 'default_tool') { title = '快捷工具'; customDesc = '轻量工具箱'; }
-        const newId = nextId++;
-        const newOrder = components.filter(c=>c.visible).length + 1;
-        components.push({
-            id: newId, type: type, title: title, span: 4, order: newOrder, visible: true, customDesc: customDesc
-        });
-        saveComponents();
-        renderGrid();
-        renderComponentManager();
-    }
-
-    // 壁纸管理
-    function setWallpaper(value, isUrl=false) {
-        const body = document.getElementById('appBody');
-        if(isUrl && value) {
-            body.style.background = `url(${value}) center/cover no-repeat fixed`;
-            localStorage.setItem(WALLPAPER_KEY, JSON.stringify({type:'url', url:value}));
-        } else if(wallpapers[value]) {
-            body.style.background = wallpapers[value];
-            localStorage.setItem(WALLPAPER_KEY, JSON.stringify({type:'preset', key:value}));
-        }
-    }
-    function loadSavedWallpaper() {
-        const saved = localStorage.getItem(WALLPAPER_KEY);
-        if(saved) {
-            try{
-                const data = JSON.parse(saved);
-                if(data.type==='url' && data.url) setWallpaper(data.url, true);
-                else if(data.type==='preset' && wallpapers[data.key]) setWallpaper(data.key);
-                else setWallpaper('gradient1');
-            }catch(e){ setWallpaper('gradient1'); }
-        } else setWallpaper('gradient1');
-    }
-
-    // 每日一句
-    async function fetchSentence() {
-        try {
-            const res = await fetch('https://v1.hitokoto.cn/?encode=json&c=f');
-            const data = await res.json();
-            let text = data.hitokoto || '心之所向，素履以往';
-            if(data.from) text += ` ——「${data.from}」`;
-            document.getElementById('sentenceText').innerText = text;
-        } catch(e) {
-            document.getElementById('sentenceText').innerText = '行到水穷处，坐看云起时。';
-        }
-    }
-
-    // 更新时间
-    function updateTime() {
-        const now = new Date();
-        document.getElementById('liveHour').innerText = now.getHours().toString().padStart(2,'0');
-        document.getElementById('liveMinute').innerText = now.getMinutes().toString().padStart(2,'0');
-        document.getElementById('liveSecond').innerText = now.getSeconds().toString().padStart(2,'0');
-        document.getElementById('liveDateCn').innerText = now.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
-    }
-
-    function escapeHtml(str) {
-        return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
-    }
-
-    // 密码保护逻辑
-    const passwordModal = document.getElementById('passwordModal');
-    const settingsModal = document.getElementById('settingsModal');
-    const openSettingsBtn = document.getElementById('openSettingsBtn');
-    const submitPwdBtn = document.getElementById('submitPasswordBtn');
-    const cancelPwdBtn = document.getElementById('cancelPasswordBtn');
-    const pwdInput = document.getElementById('settingsPassword');
-    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-
-    function openPasswordModal() {
-        pwdInput.value = '';
-        passwordModal.classList.add('active');
-    }
-    function closePasswordModal() {
-        passwordModal.classList.remove('active');
-    }
-    function openSettingsPanel() {
-        settingsModal.classList.add('active');
-        renderComponentManager();
-    }
-    function closeSettingsPanel() {
-        settingsModal.classList.remove('active');
-    }
-    openSettingsBtn.addEventListener('click', openPasswordModal);
-    submitPwdBtn.addEventListener('click', () => {
-        if(pwdInput.value === '000000') {
-            closePasswordModal();
-            openSettingsPanel();
-        } else {
-            alert('密码错误！');
-            pwdInput.value = '';
-        }
-    });
-    cancelPwdBtn.addEventListener('click', closePasswordModal);
-    passwordModal.addEventListener('click', (e) => {
-        if(e.target === passwordModal) closePasswordModal();
-    });
-    closeSettingsBtn.addEventListener('click', closeSettingsPanel);
-    settingsModal.addEventListener('click', (e) => {
-        if(e.target === settingsModal) closeSettingsPanel();
-    });
-
-    // 初始化
-    function init() {
-        loadComponents();
-        renderGrid();
-        loadSavedWallpaper();
-        updateTime();
-        setInterval(updateTime, 1000);
-        fetchSentence();
-        document.getElementById('refreshSentence')?.addEventListener('click', (e) => { e.stopPropagation(); fetchSentence(); });
-        document.getElementById('dailySentenceBox')?.addEventListener('click', () => fetchSentence());
-
-        // 壁纸预设
-        document.querySelectorAll('.wallpaper-opt').forEach(opt => {
-            opt.addEventListener('click', () => { setWallpaper(opt.dataset.wall); closeSettingsPanel(); });
-        });
-        document.getElementById('applyUrlBtn')?.addEventListener('click', () => {
-            const url = document.getElementById('wallpaperUrlInput').value.trim();
-            if(url) { setWallpaper(url, true); closeSettingsPanel(); }
-            else alert('请输入图片网址');
-        });
-        document.getElementById('applyUploadBtn')?.addEventListener('click', () => {
-            const file = document.getElementById('uploadImage').files[0];
-            if(file) {
-                const reader = new FileReader();
-                reader.onload = (e) => { setWallpaper(e.target.result, true); closeSettingsPanel(); };
-                reader.readAsDataURL(file);
-            } else alert('请选择图片');
-        });
-        document.getElementById('addComponentBtn')?.addEventListener('click', () => {
-            const sel = document.getElementById('addComponentSelect').value;
-            addComponent(sel);
-        });
-        document.getElementById('resetDefaultBtn')?.addEventListener('click', () => {
-            if(confirm('重置所有组件为默认状态？自定义组件将被删除。')) {
-                resetToDefault();
-                closeSettingsPanel();
-            }
-        });
-        showHome();
-    }
-    init();
+    document.getElementById('backFromGuestbookBtn')?.addEventListener('click', showHome);
+    document.getElementById('refreshSentence')?.addEventListener('click', (e)=>{ e.stopPropagation(); fetchSentence(); });
+    document.getElementById('dailySentenceBox')?.addEventListener('click', ()=>fetchSentence());
+    document.querySelectorAll('.wallpaper-opt').forEach(opt=>opt.addEventListener('click',()=>{ setWallpaper(opt.dataset.wall); closeSettingsPanel(); }));
+    document.getElementById('applyUrlBtn')?.addEventListener('click',()=>{ let url=document.getElementById('wallpaperUrlInput').value.trim(); if(url){ setWallpaper(url, true); closeSettingsPanel(); } else alert('请输入图片网址'); });
+    document.getElementById('applyUploadBtn')?.addEventListener('click',()=>{ let file=document.getElementById('uploadImage').files[0]; if(file){ let reader=new FileReader(); reader.onload=e=>{ setWallpaper(e.target.result, true); closeSettingsPanel(); }; reader.readAsDataURL(file); } else alert('请选择图片'); });
+    document.getElementById('addComponentBtn')?.addEventListener('click',()=>{ addComponent(document.getElementById('addComponentSelect').value); });
+    document.getElementById('resetDefaultBtn')?.addEventListener('click',()=>{ if(confirm('重置所有组件为默认状态？')){ resetToDefault(); closeSettingsPanel(); } });
+    function initAll(){ loadComponents(); renderGrid(); loadSavedWallpaper(); loadMessages(); renderGuestbookMessages(); updateTime(); setInterval(updateTime,1000); fetchSentence(); showHome(); }
+    initAll();
 </script>
 </body>
 </html>
