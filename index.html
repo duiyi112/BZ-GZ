@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>灵犀空间</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>灵犀空间 · 全功能留言板+游戏中心</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -291,6 +291,30 @@
         .tool-content { background: rgba(20, 30, 45, 0.6); border-radius: 1.5rem; padding: 1.5rem; }
         footer { margin-top: 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; }
         @media (max-width: 800px) { body { padding: 1rem; } .bento-grid { gap: 1rem; } }
+        /* 贪吃蛇手机弹窗专用修复 */
+        .snake-modal-content {
+            background: rgba(15,25,20,0.96);
+            border-radius: 2rem;
+            width: 95%;
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ffd878;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .snake-iframe {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: none;
+            background: #0e2a1a;
+            min-height: 500px;
+        }
+        @media (max-width: 600px) {
+            .snake-iframe { min-height: 460px; }
+        }
     </style>
 </head>
 <body id="appBody">
@@ -379,30 +403,101 @@
             <button class="close-settings" id="closeSettingsBtn">关闭设置</button>
         </div>
     </div>
-    <footer>📢 后续更多功能正在开发中......</footer>
+    <footer>📢 贪吃蛇现已完美适配手机｜留言板·影视·游戏全功能保留</footer>
 </div>
 
 <script>
-    // ================= 贪吃蛇小游戏 (独立弹窗) =================
+    // ================= 贪吃蛇游戏 (独立弹窗，手机完美适配) =================
+    // 优化后的蛇游戏 HTML，确保 canvas 自适应 + 按键触屏友好
     const snakeGameHTML = `<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>贪吃蛇经典版</title><style>*{user-select:none;}body{background:linear-gradient(145deg,#1a472a 0%,#0e2a1a 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;margin:0;padding:16px;}.game-container{background:#0f1f0c;border-radius:48px;padding:20px;max-width:600px;width:100%;}canvas{display:block;margin:0 auto;border-radius:20px;background:#1e2e1a;width:100%;height:auto;}.info-panel{display:flex;justify-content:space-between;margin-top:18px;}.score-box,.best-box{background:#010b05;padding:6px 16px;border-radius:60px;color:#b3ffa7;}.best-box{color:#ffd966;}.status{background:#000000aa;padding:6px 16px;border-radius:40px;color:#eaffd0;}.action-buttons{display:flex;gap:16px;justify-content:center;margin:12px 0;}button{background:#2c4822;border:none;font-weight:bold;padding:8px 28px;border-radius:60px;color:#f5ffea;cursor:pointer;box-shadow:0 5px 0 #0f2a0a;}.mobile-panel{background:#1e2a18cc;border-radius:56px;padding:16px;margin-top:20px;}.dpad{display:flex;flex-direction:column;align-items:center;gap:12px;}.dpad-row{display:flex;justify-content:center;gap:20px;}.ctrl-btn{background:#1f3520;width:70px;height:70px;border-radius:60px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#f5ffdb;box-shadow:0 6px 0 #0a2b0a;cursor:pointer;}@media (max-width:550px){.ctrl-btn{width:60px;height:60px;}}.tip{font-size:0.7rem;background:#1e2a18b3;padding:6px 12px;border-radius:50px;text-align:center;margin-top:14px;}</style></head>
-<body><div class="game-container"><canvas id="snakeCanvas" width="500" height="500"></canvas><div class="info-panel"><div class="score-box">🍎 SCORE <span id="scoreValue">0</span></div><div class="best-box">🏆 BEST <span id="bestValue">0</span></div><div class="status" id="gameStatusText">▶ 游戏中</div></div><div class="action-buttons"><button id="resetButton">🐍 新的一局</button><button id="pauseButton">⏸ 暂停</button></div><div class="mobile-panel"><div class="dpad"><div class="dpad-row"><div class="ctrl-btn" data-dir="UP">▲</div></div><div class="dpad-row"><div class="ctrl-btn" data-dir="LEFT">◀</div><div class="ctrl-btn" data-dir="DOWN">▼</div><div class="ctrl-btn" data-dir="RIGHT">▶</div></div></div><div class="tip">🎮 键盘方向键 / 点按按钮</div></div></div><script>(function(){const G=20,C=25;const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[[10,10],[9,10],[8,10]],food={x:12,y:12},dir='RIGHT',nextDir='RIGHT',score=0,best=0,active=true,win=false,paused=false,iv=null;function loadBest(){let s=localStorage.getItem('snakeBestScore');if(s)best=parseInt(s)||0;document.getElementById('bestValue').innerText=best;}function saveBest(){if(score>best){best=score;localStorage.setItem('snakeBestScore',best);document.getElementById('bestValue').innerText=best;}}function updateUI(){document.getElementById('scoreValue').innerText=score;saveBest();}function stopLoop(){if(iv){clearInterval(iv);iv=null;}}function startLoop(){if(iv)stopLoop();if(active&&!paused)iv=setInterval(tick,150);}function endGame(victory){if(!active)return;active=false;win=victory;paused=false;stopLoop();draw();}function genFood(){let set=new Set();for(let s of snake)set.add(s[0]+','+s[1]);if(set.size>=G*G){endGame(true);return false;}let empty=[];for(let i=0;i<G;i++)for(let j=0;j<G;j++)if(!set.has(i+','+j))empty.push([i,j]);let [fx,fy]=empty[Math.floor(Math.random()*empty.length)];food={x:fx,y:fy};return true;}function reset(){stopLoop();active=true;win=false;paused=false;snake=[[10,10],[9,10],[8,10]];dir='RIGHT';nextDir='RIGHT';score=0;updateUI();let set2=new Set();for(let s of snake)set2.add(s[0]+','+s[1]);let free=[];for(let i=0;i<G;i++)for(let j=0;j<G;j++)if(!set2.has(i+','+j))free.push([i,j]);if(free.length){let [fx,fy]=free[Math.floor(Math.random()*free.length)];food={x:fx,y:fy};}else food={x:5,y:5};draw();startLoop();}function togglePause(){if(!active)return;paused=!paused;if(paused)stopLoop();else startLoop();draw();}function setDirection(d){if(!active||paused)return;const op={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'};if(op[d]===dir)return;nextDir=d;}function move(){if(!active)return false;let nd=nextDir;const op={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'};if(op[nd]===dir)nd=dir;dir=nd;let h=snake[0];let nh=[...h];if(dir==='RIGHT')nh[0]+=1;else if(dir==='LEFT')nh[0]-=1;else if(dir==='UP')nh[1]-=1;else if(dir==='DOWN')nh[1]+=1;if(nh[0]<0||nh[0]>=G||nh[1]<0||nh[1]>=G){endGame(false);return false;}let willEat=(nh[0]===food.x&&nh[1]===food.y);let ns=[nh,...snake];if(!willEat)ns.pop();let headPos=ns[0];let self=ns.slice(1).some(s=>s[0]===headPos[0]&&s[1]===headPos[1]);if(self){endGame(false);return false;}snake=ns;if(willEat){score+=10;updateUI();if(!genFood())return false;}return true;}function tick(){if(!active||paused)return;move();draw();}function draw(){ctx.fillStyle='#1f3120';ctx.fillRect(0,0,canvas.width,canvas.height);for(let i=0;i<=G;i++){ctx.beginPath();ctx.moveTo(i*C,0);ctx.lineTo(i*C,canvas.height);ctx.stroke();ctx.moveTo(0,i*C);ctx.lineTo(canvas.width,i*C);ctx.stroke();}let fx=food.x*C,fy=food.y*C;ctx.fillStyle='#ff5252';ctx.beginPath();ctx.arc(fx+C/2,fy+C/2,C/2-2,0,Math.PI*2);ctx.fill();for(let i=0;i<snake.length;i++){let [sx,sy]=snake[i];let x=sx*C,y=sy*C;if(i===0){ctx.fillStyle='#6ab04c';ctx.fillRect(x+1,y+1,C-2,C-2);ctx.fillStyle='#fff';if(dir==='RIGHT'){ctx.arc(x+C-7,y+7,3,0,Math.PI*2);ctx.arc(x+C-7,y+C-8,3,0,Math.PI*2);}else if(dir==='LEFT'){ctx.arc(x+7,y+7,3,0,Math.PI*2);ctx.arc(x+7,y+C-8,3,0,Math.PI*2);}else if(dir==='UP'){ctx.arc(x+7,y+7,3,0,Math.PI*2);ctx.arc(x+C-8,y+7,3,0,Math.PI*2);}else{ctx.arc(x+7,y+C-8,3,0,Math.PI*2);ctx.arc(x+C-8,y+C-8,3,0,Math.PI*2);}ctx.fill();}else{ctx.fillStyle='#589e3c';ctx.fillRect(x+1,y+1,C-2,C-2);}}if(!active){ctx.fillStyle='rgba(0,0,0,0.82)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.font='bold 24px monospace';ctx.fillStyle=win?'#ffe484':'#ffb347';let msg=win?'✨ 胜 利 ！ ✨':'💀 游 戏 结 束 💀';ctx.fillText(msg,canvas.width/2-ctx.measureText(msg).width/2,canvas.height/2-20);}else if(paused){ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.font='bold 28px monospace';ctx.fillStyle='#d4ffb0';ctx.fillText('⏸ 暂 停 中',canvas.width/2-ctx.measureText('⏸ 暂 停 中').width/2,canvas.height/2);}}window.addEventListener('keydown',e=>{let nd=null;if(e.key==='ArrowUp')nd='UP';else if(e.key==='ArrowDown')nd='DOWN';else if(e.key==='ArrowLeft')nd='LEFT';else if(e.key==='ArrowRight')nd='RIGHT';if(nd){e.preventDefault();setDirection(nd);}});document.querySelectorAll('.ctrl-btn').forEach(btn=>{let d=btn.getAttribute('data-dir');if(d)btn.addEventListener('click',()=>setDirection(d));});document.getElementById('resetButton').addEventListener('click',reset);document.getElementById('pauseButton').addEventListener('click',togglePause);loadBest();reset();})();<\/script></body></html>`;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>贪吃蛇 · 手机触控版</title>
+    <style>
+        * { user-select: none; -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        body { background: linear-gradient(145deg, #1a472a 0%, #0e2a1a 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', 'Courier New', monospace; margin: 0; padding: 12px; }
+        .game-container { background: #0f1f0c; border-radius: 40px; padding: 16px; box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5); border: 1px solid #5b8c50; max-width: 550px; width: 100%; margin: auto; }
+        canvas { display: block; margin: 0 auto; border-radius: 20px; box-shadow: 0 0 0 3px #3b5c2e; background-color: #1e2e1a; width: 100%; height: auto; cursor: pointer; }
+        .info-panel { display: flex; justify-content: space-between; margin-top: 16px; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .score-box, .best-box { background: #010b05; padding: 5px 14px; border-radius: 60px; font-weight: bold; font-family: monospace; box-shadow: inset 0 1px 3px #00000055, 0 5px 8px rgba(0,0,0,0.3); }
+        .score-box { color: #b3ffa7; border-bottom: 2px solid #7cb55e; }
+        .best-box { color: #ffd966; border-bottom: 2px solid #c9a53b; }
+        .status { background: #000000aa; backdrop-filter: blur(4px); padding: 5px 14px; border-radius: 40px; font-weight: bold; color: #eaffd0; border: 1px solid #90c97a; font-size: 0.8rem; }
+        .action-buttons { display: flex; gap: 16px; justify-content: center; margin: 12px 0 10px; }
+        button { background: #2c4822; border: none; font-weight: bold; font-size: 1rem; padding: 8px 22px; border-radius: 60px; color: #f5ffea; cursor: pointer; box-shadow: 0 4px 0 #0f2a0a; transition: 0.07s linear; }
+        button:active { transform: translateY(3px); box-shadow: 0 1px 0 #0f2a0a; }
+        .mobile-panel { background: #1e2a18cc; backdrop-filter: blur(8px); border-radius: 56px; padding: 12px; margin-top: 16px; border: 1px solid #7ca86b; }
+        .dpad { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .dpad-row { display: flex; justify-content: center; gap: 18px; }
+        .ctrl-btn { background: #1f3520; width: 70px; height: 70px; border-radius: 60px; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: bold; color: #f5ffdb; box-shadow: 0 5px 0 #0a2b0a; cursor: pointer; touch-action: manipulation; border: 1px solid #86bb70; }
+        .ctrl-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0a2b0a; background: #4d7840; }
+        @media (max-width: 550px) { .ctrl-btn { width: 60px; height: 60px; font-size: 1.9rem; } .dpad-row { gap: 14px; } }
+        @media (max-width: 450px) { .ctrl-btn { width: 55px; height: 55px; font-size: 1.7rem; } }
+        .tip { font-size: 0.65rem; background: #1e2a18b3; padding: 6px 10px; border-radius: 50px; text-align: center; margin-top: 12px; color: #c7f0b2; }
+    </style>
+</head>
+<body>
+<div class="game-container">
+    <canvas id="snakeCanvas" width="500" height="500"></canvas>
+    <div class="info-panel"><div class="score-box">🍎 SCORE <span id="scoreValue">0</span></div><div class="best-box">🏆 BEST <span id="bestValue">0</span></div><div class="status" id="gameStatusText">▶ 游戏中</div></div>
+    <div class="action-buttons"><button id="resetButton">🐍 新的一局</button><button id="pauseButton">⏸ 暂停</button></div>
+    <div class="mobile-panel"><div class="dpad"><div class="dpad-row"><div class="ctrl-btn" data-dir="UP">▲</div></div><div class="dpad-row"><div class="ctrl-btn" data-dir="LEFT">◀</div><div class="ctrl-btn" data-dir="DOWN">▼</div><div class="ctrl-btn" data-dir="RIGHT">▶</div></div></div><div class="tip">🎮 键盘方向键 / 点按按钮 | 触控手机优化</div></div>
+</div>
+<script>
+    (function(){
+        const GRID_SIZE=20, CELL_SIZE=25, DEFAULT_INTERVAL_MS=150;
+        const canvas=document.getElementById('snakeCanvas'), ctx=canvas.getContext('2d');
+        const scoreSpan=document.getElementById('scoreValue'), bestSpan=document.getElementById('bestValue'), statusDiv=document.getElementById('gameStatusText');
+        let snake=[[10,10],[9,10],[8,10]], food={x:12,y:12}, direction='RIGHT', nextDirection='RIGHT', score=0, bestScore=0, gameActive=true, isWin=false, paused=false, gameInterval=null;
+        function loadBest(){ const stored=localStorage.getItem('snakeBestScore'); if(stored!==null) bestScore=parseInt(stored)||0; bestSpan.innerText=bestScore; }
+        function updateBestIfNeeded(){ if(score>bestScore){ bestScore=score; bestSpan.innerText=bestScore; localStorage.setItem('snakeBestScore',bestScore); } }
+        function updateScoreUI(){ scoreSpan.innerText=score; updateBestIfNeeded(); }
+        function stopLoop(){ if(gameInterval){ clearInterval(gameInterval); gameInterval=null; } }
+        function startLoop(){ if(gameInterval) stopLoop(); if(gameActive && !paused) gameInterval=setInterval(gameTick, DEFAULT_INTERVAL_MS); }
+        function updateStatusText(){ if(!gameActive) statusDiv.innerHTML=isWin?'🏆 大获全胜！🏆':'💀 GAME OVER 💀'; else if(paused) statusDiv.innerHTML='⏸ 暂停中'; else statusDiv.innerHTML='▶ 游戏中'; }
+        function endGame(victory=false){ if(!gameActive) return; gameActive=false; isWin=victory; paused=false; stopLoop(); updateStatusText(); drawGame(); }
+        function generateRandomFood(){ const snakeSet=new Set(); for(let seg of snake) snakeSet.add(seg[0]+','+seg[1]); if(snakeSet.size>=GRID_SIZE*GRID_SIZE){ endGame(true); return false; } let empty=[]; for(let i=0;i<GRID_SIZE;i++) for(let j=0;j<GRID_SIZE;j++) if(!snakeSet.has(i+','+j)) empty.push([i,j]); if(empty.length===0){ endGame(true); return false; } const [fx,fy]=empty[Math.floor(Math.random()*empty.length)]; food={x:fx,y:fy}; return true; }
+        function resetGame(){ stopLoop(); gameActive=true; isWin=false; paused=false; snake=[[10,10],[9,10],[8,10]]; direction='RIGHT'; nextDirection='RIGHT'; score=0; updateScoreUI(); const snakeSet=new Set(); for(let s of snake) snakeSet.add(s[0]+','+s[1]); let free=[]; for(let i=0;i<GRID_SIZE;i++) for(let j=0;j<GRID_SIZE;j++) if(!snakeSet.has(i+','+j)) free.push([i,j]); if(free.length) { let [fx,fy]=free[Math.floor(Math.random()*free.length)]; food={x:fx,y:fy}; } else food={x:5,y:5}; updateStatusText(); document.getElementById('pauseButton').innerText='⏸ 暂停'; drawGame(); startLoop(); }
+        function togglePause(){ if(!gameActive) return; paused=!paused; if(paused){ stopLoop(); document.getElementById('pauseButton').innerText='▶ 继续'; } else { startLoop(); document.getElementById('pauseButton').innerText='⏸ 暂停'; drawGame(); } updateStatusText(); drawGame(); }
+        function setDirection(newDir){ if(!gameActive || paused) return; const opposite={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'}; if(opposite[newDir]===direction) return; nextDirection=newDir; }
+        function moveSnake(){ if(!gameActive) return false; let newDir=nextDirection; const opposite={'UP':'DOWN','DOWN':'UP','LEFT':'RIGHT','RIGHT':'LEFT'}; if(opposite[newDir]===direction) newDir=direction; direction=newDir; let head=snake[0]; let newHead=[...head]; if(direction==='RIGHT') newHead[0]+=1; else if(direction==='LEFT') newHead[0]-=1; else if(direction==='UP') newHead[1]-=1; else if(direction==='DOWN') newHead[1]+=1; if(newHead[0]<0||newHead[0]>=GRID_SIZE||newHead[1]<0||newHead[1]>=GRID_SIZE){ endGame(false); return false; } const willEat=(newHead[0]===food.x && newHead[1]===food.y); let newSnake=[newHead,...snake]; if(!willEat) newSnake.pop(); const headPos=newSnake[0]; const collideSelf=newSnake.slice(1).some(seg=>seg[0]===headPos[0]&&seg[1]===headPos[1]); if(collideSelf){ endGame(false); return false; } snake=newSnake; if(willEat){ score+=10; updateScoreUI(); if(!generateRandomFood()) return false; } return true; }
+        function gameTick(){ if(!gameActive||paused) return; moveSnake(); drawGame(); }
+        function drawGame(){ ctx.fillStyle='#1f3120'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.strokeStyle='#2f4d2b'; for(let i=0;i<=GRID_SIZE;i++){ ctx.beginPath(); ctx.moveTo(i*CELL_SIZE,0); ctx.lineTo(i*CELL_SIZE,canvas.height); ctx.stroke(); ctx.moveTo(0,i*CELL_SIZE); ctx.lineTo(canvas.width,i*CELL_SIZE); ctx.stroke(); } const fx=food.x*CELL_SIZE, fy=food.y*CELL_SIZE; ctx.fillStyle='#ff5252'; ctx.beginPath(); ctx.arc(fx+CELL_SIZE/2,fy+CELL_SIZE/2,CELL_SIZE/2-2,0,Math.PI*2); ctx.fill(); for(let i=0;i<snake.length;i++){ let [sx,sy]=snake[i]; let x=sx*CELL_SIZE,y=sy*CELL_SIZE; if(i===0){ ctx.fillStyle='#6ab04c'; ctx.fillRect(x+1,y+1,CELL_SIZE-2,CELL_SIZE-2); ctx.fillStyle='#ffffff'; if(direction==='RIGHT'){ ctx.arc(x+CELL_SIZE-7,y+7,3,0,Math.PI*2); ctx.arc(x+CELL_SIZE-7,y+CELL_SIZE-8,3,0,Math.PI*2); } else if(direction==='LEFT'){ ctx.arc(x+7,y+7,3,0,Math.PI*2); ctx.arc(x+7,y+CELL_SIZE-8,3,0,Math.PI*2); } else if(direction==='UP'){ ctx.arc(x+7,y+7,3,0,Math.PI*2); ctx.arc(x+CELL_SIZE-8,y+7,3,0,Math.PI*2); } else { ctx.arc(x+7,y+CELL_SIZE-8,3,0,Math.PI*2); ctx.arc(x+CELL_SIZE-8,y+CELL_SIZE-8,3,0,Math.PI*2); } ctx.fill(); } else { ctx.fillStyle='#589e3c'; ctx.fillRect(x+1,y+1,CELL_SIZE-2,CELL_SIZE-2); } } if(!gameActive){ ctx.fillStyle='rgba(0,0,0,0.82)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.font='bold 24px monospace'; ctx.fillStyle=isWin?'#ffe484':'#ffb347'; let msg=isWin?'✨ 胜 利 ！ ✨':'💀 游 戏 结 束 💀'; ctx.fillText(msg,canvas.width/2-ctx.measureText(msg).width/2,canvas.height/2-20); ctx.font='16px monospace'; ctx.fillStyle='#eef5db'; ctx.fillText('点击「新的一局」继续',canvas.width/2-ctx.measureText('点击「新的一局」继续').width/2,canvas.height/2+30); } else if(paused&&gameActive){ ctx.fillStyle='rgba(0,0,0,0.65)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.font='bold 28px monospace'; ctx.fillStyle='#d4ffb0'; ctx.fillText('⏸ 暂 停 中',canvas.width/2-ctx.measureText('⏸ 暂 停 中').width/2,canvas.height/2); } }
+        function handleKey(e){ const key=e.key; let newDir=null; if(key==='ArrowUp') newDir='UP'; else if(key==='ArrowDown') newDir='DOWN'; else if(key==='ArrowLeft') newDir='LEFT'; else if(key==='ArrowRight') newDir='RIGHT'; if(newDir){ e.preventDefault(); setDirection(newDir); } }
+        function bindMobile(){ document.querySelectorAll('.ctrl-btn').forEach(btn=>{ const dir=btn.getAttribute('data-dir'); if(!dir) return; const handle= e => { e.preventDefault(); setDirection(dir); btn.style.transform='translateY(2px)'; setTimeout(()=>btn.style.transform='',80); }; btn.addEventListener('click',handle); btn.addEventListener('touchstart',handle,{passive:false}); }); }
+        function init(){ loadBest(); resetGame(); bindMobile(); window.addEventListener('keydown',handleKey); document.getElementById('resetButton').addEventListener('click',()=>resetGame()); document.getElementById('pauseButton').addEventListener('click',()=>togglePause()); }
+        init();
+    })();
+<\/script>
+</body>
+</html>`;
     let snakeBlobUrl = null;
     function showSnakeGameModal() {
         if(snakeBlobUrl) URL.revokeObjectURL(snakeBlobUrl);
         const blob = new Blob([snakeGameHTML], { type: 'text/html' });
         snakeBlobUrl = URL.createObjectURL(blob);
         const modalDiv = document.createElement('div');
-        modalDiv.className = 'snake-modal';
         modalDiv.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;z-index:10000;';
-        modalDiv.innerHTML = `<div style="background:rgba(15,25,20,0.96);border-radius:2.5rem;width:95%;max-width:620px;padding:1rem;border:1px solid #ffd878;"><div style="display:flex;justify-content:space-between;align-items:center;padding:0 0.8rem 0.6rem;"><h3 style="color:#ffdd99;"><i class="fas fa-snake"></i> 贪吃蛇·经典小游戏</h3><button id="closeSnakeModal" style="background:transparent;border:none;font-size:1.8rem;cursor:pointer;color:#ffbc6e;">&times;</button></div><iframe src="${snakeBlobUrl}" style="width:100%;min-height:560px;border:none;border-radius:1.5rem;"></iframe></div>`;
+        modalDiv.innerHTML = `
+            <div class="snake-modal-content" style="background:rgba(15,25,20,0.96);border-radius:2rem;width:95%;max-width:600px;margin:auto;border:1px solid #ffd878;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1rem;background:rgba(0,0,0,0.3);border-bottom:1px solid #ffd878;">
+                    <h3 style="color:#ffdd99;margin:0;"><i class="fas fa-snake"></i> 贪吃蛇·经典</h3>
+                    <button id="closeSnakeModal" style="background:transparent;border:none;font-size:1.8rem;cursor:pointer;color:#ffbc6e;line-height:1;">&times;</button>
+                </div>
+                <div style="flex:1;overflow-y:auto;padding:0.5rem;">
+                    <iframe src="${snakeBlobUrl}" style="width:100%;height:auto;min-height:480px;border:none;border-radius:1rem;display:block;"></iframe>
+                </div>
+            </div>
+        `;
         document.body.appendChild(modalDiv);
         const close = () => { modalDiv.remove(); if(snakeBlobUrl) URL.revokeObjectURL(snakeBlobUrl); };
         modalDiv.querySelector('#closeSnakeModal').addEventListener('click', close);
         modalDiv.addEventListener('click', (e) => { if(e.target === modalDiv) close(); });
     }
-    // ========== 原有灵犀空间逻辑 (保留影视/游戏/工具/组件管理/壁纸等) ==========
+
+    // ========== 原有完整逻辑 (留言板/组件/影视/游戏中心等) ==========
     const MOVIE_SITES = [{ name: "Omofun", url: "https://omofun01.xyz/", icon: "fa-tv" },{ name: "奈飞 (Netflix)", url: "https://www.netflixgc.net/", icon: "fa-film" },{ name: "影视网", url: "https://czzyv.com/", icon: "fa-play-circle" },{ name: "喵物次元", url: "https://www.mwcy.net/", icon: "fa-paw" },{ name: "樱花动漫", url: "https://www.yinhuadm.xyz/", icon: "fa-feather" },{ name: "囧次元", url: "https://jocydm.cc/", icon: "fa-laugh-squint" }];
     const GAME_SITES = [{ name: "植物大战僵尸", url: "https://game.moe.ms/", icon: "fa-seedling", desc: "经典塔防网页版" },{ name: "CS1.6 网页版", url: "https://play-cs.com/zh/servers", icon: "fa-crosshairs", desc: "射击经典" },{ name: "Steam学习版", url: "https://www.gamer520.com/", icon: "fa-steam", desc: "海量游戏资源" }];
     let components = [], nextId = 100;
@@ -448,7 +543,7 @@
         grid.innerHTML = '';
         for(let comp of visible) {
             const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`;
-            if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">更多功能可在留言板提议</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`;
+            if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">贪吃蛇已完美适配手机｜留言板可提议</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`;
             else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
             else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
             else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载</div></div>`;
@@ -468,8 +563,8 @@
     function showHome(){ hideAllViews(); document.getElementById('mainBentoView').style.display='grid'; }
     function hideAllViews(){ document.getElementById('mainBentoView').style.display='none'; document.getElementById('movieHallView').style.display='none'; document.getElementById('gameCenterView').style.display='none'; document.getElementById('toolsView').style.display='none'; document.getElementById('guestbookView').style.display='none'; }
     function renderMovieGrid(){ const c=document.getElementById('movieGridContainer'); if(c) c.innerHTML=MOVIE_SITES.map(s=>`<div class="movie-card"><div class="movie-icon"><i class="fas ${s.icon}"></i></div><div class="movie-title">${escapeHtml(s.name)}</div></div>`).join(''); document.querySelectorAll('.movie-card').forEach((card,i)=>card.addEventListener('click',()=>window.open(MOVIE_SITES[i].url,'_blank'))); }
-    function renderGameGrid(){ const c=document.getElementById('gameGridContainer'); if(c) c.innerHTML=GAME_SITES.map(g=>`<div class="game-card" data-game="${g.name}"><div class="game-icon"><i class="fab ${g.icon}"></i></div><div class="game-title">${escapeHtml(g.name)}</div><div class="game-desc">${escapeHtml(g.desc)}</div></div>`).join('') + `<div class="game-card" id="miniSnakeGameCard"><div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗游玩</div></div>`; document.querySelectorAll('.game-card:not(#miniSnakeGameCard)').forEach((card,i)=>card.addEventListener('click',()=>window.open(GAME_SITES[i].url,'_blank'))); document.getElementById('miniSnakeGameCard')?.addEventListener('click',()=>showSnakeGameModal()); }
-    function renderComponentManager() { /* 完整组件管理代码保留原有交互，此处精简但保证可用 */ const container=document.getElementById('componentsListContainer'); if(!container) return; const sorted=[...components].sort((a,b)=>a.order-b.order); container.innerHTML=sorted.map(comp=>`<div class="component-item"><span><i class="fas ${comp.type==='welcome'?'fa-star':comp.type==='movie'?'fa-film':comp.type==='gamecenter'?'fa-gamepad':comp.type==='tools'?'fa-toolbox':comp.type==='guestbook'?'fa-comment-dots':'fa-cube'}"></i> ${escapeHtml(comp.title||comp.type)}</span><div class="comp-actions"><select class="size-select" data-id="${comp.id}" ${FIXED_COMP_IDS.includes(comp.id)?'disabled':''}>${[1,2,3,4,5,6,7,8,9,10,11,12].map(s=>`<option value="${s}" ${comp.span==s?'selected':''}>宽度 ${s}/12</option>`).join('')}</select><button class="move-up" data-id="${comp.id}" ${comp.order===1?'disabled':''}>↑</button><button class="move-down" data-id="${comp.id}" ${comp.order===sorted.length?'disabled':''}>↓</button>${!FIXED_COMP_IDS.includes(comp.id)?`<button class="delete-comp" data-id="${comp.id}" data-name="${escapeHtml(comp.title)}">🗑️</button>`:'<span style="font-size:0.7rem;">固定组件</span>'}</div></div>`).join('');
+    function renderGameGrid(){ const c=document.getElementById('gameGridContainer'); if(c) c.innerHTML=GAME_SITES.map(g=>`<div class="game-card" data-game="${g.name}"><div class="game-icon"><i class="fab ${g.icon}"></i></div><div class="game-title">${escapeHtml(g.name)}</div><div class="game-desc">${escapeHtml(g.desc)}</div></div>`).join('') + `<div class="game-card" id="miniSnakeGameCard"><div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗 手机完美适配</div></div>`; document.querySelectorAll('.game-card:not(#miniSnakeGameCard)').forEach((card,i)=>card.addEventListener('click',()=>window.open(GAME_SITES[i].url,'_blank'))); document.getElementById('miniSnakeGameCard')?.addEventListener('click',()=>showSnakeGameModal()); }
+    function renderComponentManager() { const container=document.getElementById('componentsListContainer'); if(!container) return; const sorted=[...components].sort((a,b)=>a.order-b.order); container.innerHTML=sorted.map(comp=>`<div class="component-item"><span><i class="fas ${comp.type==='welcome'?'fa-star':comp.type==='movie'?'fa-film':comp.type==='gamecenter'?'fa-gamepad':comp.type==='tools'?'fa-toolbox':comp.type==='guestbook'?'fa-comment-dots':'fa-cube'}"></i> ${escapeHtml(comp.title||comp.type)}</span><div class="comp-actions"><select class="size-select" data-id="${comp.id}" ${FIXED_COMP_IDS.includes(comp.id)?'disabled':''}>${[1,2,3,4,5,6,7,8,9,10,11,12].map(s=>`<option value="${s}" ${comp.span==s?'selected':''}>宽度 ${s}/12</option>`).join('')}</select><button class="move-up" data-id="${comp.id}" ${comp.order===1?'disabled':''}>↑</button><button class="move-down" data-id="${comp.id}" ${comp.order===sorted.length?'disabled':''}>↓</button>${!FIXED_COMP_IDS.includes(comp.id)?`<button class="delete-comp" data-id="${comp.id}" data-name="${escapeHtml(comp.title)}">🗑️</button>`:'<span style="font-size:0.7rem;">固定组件</span>'}</div></div>`).join('');
         document.querySelectorAll('.size-select').forEach(sel=>sel.addEventListener('change',(e)=>{ let id=parseInt(sel.dataset.id), ns=parseInt(sel.value), cp=components.find(c=>c.id===id); if(cp){ cp.span=ns; saveComponents(); renderGrid(); } }));
         document.querySelectorAll('.move-up').forEach(btn=>btn.addEventListener('click',()=>{ let id=parseInt(btn.dataset.id), idx=components.findIndex(c=>c.id===id); if(idx>0){ [components[idx].order,components[idx-1].order]=[components[idx-1].order,components[idx].order]; components.sort((a,b)=>a.order-b.order); saveComponents(); renderGrid(); renderComponentManager(); } }));
         document.querySelectorAll('.move-down').forEach(btn=>btn.addEventListener('click',()=>{ let id=parseInt(btn.dataset.id), idx=components.findIndex(c=>c.id===id); if(idx<components.length-1){ [components[idx].order,components[idx+1].order]=[components[idx+1].order,components[idx].order]; components.sort((a,b)=>a.order-b.order); saveComponents(); renderGrid(); renderComponentManager(); } }));
@@ -481,7 +576,7 @@
     async function fetchSentence(){ try{ const res=await fetch('https://v1.hitokoto.cn/?encode=json&c=f'); const data=await res.json(); let text=data.hitokoto||'心之所向，素履以往'; if(data.from) text+=` ——「${data.from}」`; document.getElementById('sentenceText').innerText=text; }catch(e){ document.getElementById('sentenceText').innerText='行到水穷处，坐看云起时。'; } }
     function updateTime(){ const now=new Date(); document.getElementById('liveHour').innerText=now.getHours().toString().padStart(2,'0'); document.getElementById('liveMinute').innerText=now.getMinutes().toString().padStart(2,'0'); document.getElementById('liveSecond').innerText=now.getSeconds().toString().padStart(2,'0'); document.getElementById('liveDateCn').innerText=now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'}); }
     function escapeHtml(str){ return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-    // 留言板核心 (保留原有不可删除特性，除非开启权限)
+    // 留言板核心
     let guestbookMessages = [];
     const GB_STORAGE = 'lingxi_guestbook_msgs';
     const PERMISSION_KEY = 'guestbook_delete_permission';
@@ -495,10 +590,9 @@
     function renderGuestbookMessages(){ const container=document.getElementById('messagesList'); if(!container) return; const canDelete=getDeletePermission(); if(guestbookMessages.length===0){ container.innerHTML='<div class="empty-tip">✨ 还没有留言，写点温暖的话吧～</div>'; return; } container.innerHTML=guestbookMessages.map(msg=>`<div class="message-card" data-msg-id="${msg.id}"><div class="message-header"><span class="message-nickname"><i class="fas fa-user-circle"></i> ${escapeHtml(msg.nickname)}</span><span class="message-time"><i class="far fa-clock"></i> ${escapeHtml(msg.timestamp)}</span></div><div class="message-content">${escapeHtml(msg.content)}</div>${canDelete?`<button class="delete-msg-btn" data-id="${msg.id}" title="删除留言"><i class="fas fa-trash-alt"></i></button>`:''}</div>`).join('');
         if(canDelete) document.querySelectorAll('.delete-msg-btn').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); const id=parseInt(btn.getAttribute('data-id')); if(confirm('确定删除这条留言吗？')) deleteMessageById(id); }));
     }
-    // 设置面板监听
+    // 事件绑定
     document.getElementById('deletePermissionToggle')?.addEventListener('change',(e)=>setDeletePermission(e.target.checked));
     document.getElementById('publishMsgBtn')?.addEventListener('click',()=>{ const nick=document.getElementById('gbNickname').value, cont=document.getElementById('gbContent').value; if(addMessage(nick,cont)){ document.getElementById('gbContent').value=''; document.getElementById('gbNickname').value=''; } });
-    // 密码逻辑及UI绑定
     const passwordModal=document.getElementById('passwordModal'), settingsModal=document.getElementById('settingsModal'), openSettingsBtn=document.getElementById('openSettingsBtn'), submitPwdBtn=document.getElementById('submitPasswordBtn'), cancelPwdBtn=document.getElementById('cancelPasswordBtn'), pwdInput=document.getElementById('settingsPassword'), closeSettingsBtn=document.getElementById('closeSettingsBtn');
     function openPasswordModal(){ pwdInput.value=''; passwordModal.classList.add('active'); }
     function closePasswordModal(){ passwordModal.classList.remove('active'); }
