@@ -291,30 +291,6 @@
         .tool-content { background: rgba(20, 30, 45, 0.6); border-radius: 1.5rem; padding: 1.5rem; }
         footer { margin-top: 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; }
         @media (max-width: 800px) { body { padding: 1rem; } .bento-grid { gap: 1rem; } }
-        /* 贪吃蛇手机弹窗专用修复 */
-        .snake-modal-content {
-            background: rgba(15,25,20,0.96);
-            border-radius: 2rem;
-            width: 95%;
-            max-width: 600px;
-            margin: auto;
-            border: 1px solid #ffd878;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .snake-iframe {
-            width: 100%;
-            height: auto;
-            display: block;
-            border: none;
-            background: #0e2a1a;
-            min-height: 500px;
-        }
-        @media (max-width: 600px) {
-            .snake-iframe { min-height: 460px; }
-        }
     </style>
 </head>
 <body id="appBody">
@@ -348,7 +324,7 @@
         <div class="movie-grid" id="movieGridContainer"></div>
     </div>
 
-    <!-- 游戏中心 (含贪吃蛇小游戏弹窗) -->
+    <!-- 游戏中心 -->
     <div id="gameCenterView" class="detail-view">
         <div class="view-header"><h2><i class="fas fa-gamepad"></i> 游戏中心 · 畅玩一刻</h2><button class="back-home-btn" id="backFromGameBtn"><i class="fas fa-home"></i> 返回主页</button></div>
         <div class="game-grid" id="gameGridContainer"></div>
@@ -403,12 +379,11 @@
             <button class="close-settings" id="closeSettingsBtn">关闭设置</button>
         </div>
     </div>
-    <footer>📢 贪吃蛇现已完美适配手机｜留言板·影视·游戏全功能保留</footer>
+    <footer>📢更多功能敬请期待</footer>
 </div>
 
 <script>
     // ================= 贪吃蛇游戏 (独立弹窗，手机完美适配) =================
-    // 优化后的蛇游戏 HTML，确保 canvas 自适应 + 按键触屏友好
     const snakeGameHTML = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -527,35 +502,8 @@
             nextId=6; saveComponents();
         }
     }
-    function resetToDefault() {
-        components = [
-            {id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true},
-            {id:2,type:'movie',title:'影视大厅',span:4,order:2,visible:true},
-            {id:3,type:'gamecenter',title:'游戏中心',span:3,order:3,visible:true},
-            {id:4,type:'tools',title:'实用小工具',span:4,order:4,visible:true},
-            {id:5,type:'guestbook',title:'📝 留言板',span:4,order:5,visible:true}
-        ];
-        nextId=6; saveComponents(); renderGrid(); renderComponentManager();
-    }
-    function renderGrid() {
-        const grid = document.getElementById('mainBentoView'); if(!grid) return;
-        const visible = components.filter(c=>c.visible).sort((a,b)=>a.order-b.order);
-        grid.innerHTML = '';
-        for(let comp of visible) {
-            const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`;
-            if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">贪吃蛇已完美适配手机｜留言板可提议</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`;
-            else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
-            else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`;
-            else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载</div></div>`;
-            else if(comp.type === 'guestbook') card.innerHTML = `<div class="widget-padding feature-card" data-guestbook-entrance="true"><i class="fas fa-comment-dots feature-icon" style="color:#ffbc8c;"></i><div class="feature-title">📝 时光留言板</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 记录心语</div></div>`;
-            else { let icon=(comp.type==='default_simple'?'fa-pen-fancy':(comp.type==='default_quote'?'fa-quote-right':'fa-tools')); card.innerHTML = `<div class="widget-padding default-card"><div class="default-icon"><i class="fas ${icon}"></i></div><div class="feature-title">${escapeHtml(comp.title)}</div><div style="font-size:0.75rem;">${comp.customDesc||''}</div></div>`; }
-            grid.appendChild(card);
-        }
-        document.querySelectorAll('[data-movie-entrance]').forEach(el=>el.addEventListener('click',()=>showMovieHall()));
-        document.querySelectorAll('[data-game-entrance]').forEach(el=>el.addEventListener('click',()=>showGameCenter()));
-        document.querySelectorAll('[data-tools-entrance]').forEach(el=>el.addEventListener('click',()=>showToolsView()));
-        document.querySelectorAll('[data-guestbook-entrance]').forEach(el=>el.addEventListener('click',()=>showGuestbookView()));
-    }
+    function resetToDefault() { components = [ {id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true},{id:2,type:'movie',title:'影视大厅',span:4,order:2,visible:true},{id:3,type:'gamecenter',title:'游戏中心',span:3,order:3,visible:true},{id:4,type:'tools',title:'实用小工具',span:4,order:4,visible:true},{id:5,type:'guestbook',title:'📝 留言板',span:4,order:5,visible:true} ]; nextId=6; saveComponents(); renderGrid(); renderComponentManager(); }
+    function renderGrid() { const grid = document.getElementById('mainBentoView'); if(!grid) return; const visible = components.filter(c=>c.visible).sort((a,b)=>a.order-b.order); grid.innerHTML = ''; for(let comp of visible) { const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`; if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">更多功能敬请期待</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`; else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载</div></div>`; else if(comp.type === 'guestbook') card.innerHTML = `<div class="widget-padding feature-card" data-guestbook-entrance="true"><i class="fas fa-comment-dots feature-icon" style="color:#ffbc8c;"></i><div class="feature-title">📝 时光留言板</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 记录心语</div></div>`; else { let icon=(comp.type==='default_simple'?'fa-pen-fancy':(comp.type==='default_quote'?'fa-quote-right':'fa-tools')); card.innerHTML = `<div class="widget-padding default-card"><div class="default-icon"><i class="fas ${icon}"></i></div><div class="feature-title">${escapeHtml(comp.title)}</div><div style="font-size:0.75rem;">${comp.customDesc||''}</div></div>`; } grid.appendChild(card); } document.querySelectorAll('[data-movie-entrance]').forEach(el=>el.addEventListener('click',()=>showMovieHall())); document.querySelectorAll('[data-game-entrance]').forEach(el=>el.addEventListener('click',()=>showGameCenter())); document.querySelectorAll('[data-tools-entrance]').forEach(el=>el.addEventListener('click',()=>showToolsView())); document.querySelectorAll('[data-guestbook-entrance]').forEach(el=>el.addEventListener('click',()=>showGuestbookView())); }
     function showMovieHall(){ hideAllViews(); document.getElementById('movieHallView').style.display='block'; renderMovieGrid(); }
     function showGameCenter(){ hideAllViews(); document.getElementById('gameCenterView').style.display='block'; renderGameGrid(); }
     function showToolsView(){ hideAllViews(); document.getElementById('toolsView').style.display='block'; }
@@ -563,7 +511,58 @@
     function showHome(){ hideAllViews(); document.getElementById('mainBentoView').style.display='grid'; }
     function hideAllViews(){ document.getElementById('mainBentoView').style.display='none'; document.getElementById('movieHallView').style.display='none'; document.getElementById('gameCenterView').style.display='none'; document.getElementById('toolsView').style.display='none'; document.getElementById('guestbookView').style.display='none'; }
     function renderMovieGrid(){ const c=document.getElementById('movieGridContainer'); if(c) c.innerHTML=MOVIE_SITES.map(s=>`<div class="movie-card"><div class="movie-icon"><i class="fas ${s.icon}"></i></div><div class="movie-title">${escapeHtml(s.name)}</div></div>`).join(''); document.querySelectorAll('.movie-card').forEach((card,i)=>card.addEventListener('click',()=>window.open(MOVIE_SITES[i].url,'_blank'))); }
-    function renderGameGrid(){ const c=document.getElementById('gameGridContainer'); if(c) c.innerHTML=GAME_SITES.map(g=>`<div class="game-card" data-game="${g.name}"><div class="game-icon"><i class="fab ${g.icon}"></i></div><div class="game-title">${escapeHtml(g.name)}</div><div class="game-desc">${escapeHtml(g.desc)}</div></div>`).join('') + `<div class="game-card" id="miniSnakeGameCard"><div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗 手机完美适配</div></div>`; document.querySelectorAll('.game-card:not(#miniSnakeGameCard)').forEach((card,i)=>card.addEventListener('click',()=>window.open(GAME_SITES[i].url,'_blank'))); document.getElementById('miniSnakeGameCard')?.addEventListener('click',()=>showSnakeGameModal()); }
+    function renderGameGrid() {
+        const container = document.getElementById('gameGridContainer');
+        if(!container) return;
+        container.innerHTML = '';
+        // 原有游戏卡片
+        GAME_SITES.forEach((game, idx) => {
+            const card = document.createElement('div'); card.className = 'game-card'; 
+            card.innerHTML = `<div class="game-icon"><i class="fab ${game.icon}"></i></div><div class="game-title">${escapeHtml(game.name)}</div><div class="game-desc">${escapeHtml(game.desc)}</div>`;
+            card.addEventListener('click', () => window.open(game.url, '_blank'));
+            container.appendChild(card);
+        });
+        // 贪吃蛇卡片
+        const snakeCard = document.createElement('div'); snakeCard.className = 'game-card'; snakeCard.id = 'miniSnakeGameCard';
+        snakeCard.innerHTML = `<div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗 手机完美适配</div>`;
+        snakeCard.addEventListener('click', () => showSnakeGameModal());
+        container.appendChild(snakeCard);
+        // 上班摸鱼子组件: 直接跳转新窗口
+        const fishCard = document.createElement('div'); fishCard.className = 'game-card'; fishCard.id = 'workFishCard';
+        fishCard.innerHTML = `<div class="game-icon"><i class="fas fa-fish"></i></div><div class="game-title">🐟 上班摸鱼</div><div class="game-desc">点击直接访问Poki游戏库</div>`;
+        fishCard.addEventListener('click', () => { window.open('https://poki.com/zh', '_blank'); });
+        container.appendChild(fishCard);
+        
+        // 🧱 我的世界网页在线版 (Bloxd.io)
+        const minecraftCard = document.createElement('div'); minecraftCard.className = 'game-card'; minecraftCard.id = 'minecraftWebCard';
+        minecraftCard.innerHTML = `<div class="game-icon"><i class="fas fa-cube"></i></div><div class="game-title">🧱 我的世界网页在线版</div><div class="game-desc" style="font-size:0.7rem; color:#ffcf8a;">✨ 无需下载，打开即玩 | 💻 推荐电脑端获得最佳操作体验 (手机端触屏亦可)</div>`;
+        minecraftCard.addEventListener('click', () => { window.open('https://bloxd.io', '_blank'); });
+        container.appendChild(minecraftCard);
+        
+        // 🎨 绘谜画猜 (enazo.cn) - 在线你画我猜，好友同乐
+        const drawGuessCard = document.createElement('div'); drawGuessCard.className = 'game-card'; drawGuessCard.id = 'drawGuessCard';
+        drawGuessCard.innerHTML = `<div class="game-icon"><i class="fas fa-paintbrush"></i></div><div class="game-title">🎨 绘谜画猜</div><div class="game-desc" style="font-size:0.7rem;">在线「你画我猜」，无需登录，创建房间与好友同乐</div>`;
+        drawGuessCard.addEventListener('click', () => { window.open('https://enazo.cn', '_blank'); });
+        container.appendChild(drawGuessCard);
+        
+        // 🎲 掌上桌游 (hullqin联机桌游合集)
+        const boardgameCard = document.createElement('div'); boardgameCard.className = 'game-card'; boardgameCard.id = 'boardgameCard';
+        boardgameCard.innerHTML = `<div class="game-icon"><i class="fas fa-dice-d6"></i></div><div class="game-title">🎲 掌上桌游</div><div class="game-desc" style="font-size:0.7rem;">快速建房一键开玩一键联机 · UNO/斗地主/五子棋/狼人杀等近30款桌游合集</div>`;
+        boardgameCard.addEventListener('click', () => { window.open('https://game.hullqin.cn', '_blank'); });
+        container.appendChild(boardgameCard);
+        
+        // 📜 古诗连词 (poetrystrands.com) - 诗词接龙，文墨雅趣
+        const poetryCard = document.createElement('div'); poetryCard.className = 'game-card'; poetryCard.id = 'poetryCard';
+        poetryCard.innerHTML = `<div class="game-icon"><i class="fas fa-feather-alt"></i></div><div class="game-title">📜 古诗连词</div><div class="game-desc" style="font-size:0.7rem;">诗词接龙·飞花令 | 品中华文韵，连千古佳句</div>`;
+        poetryCard.addEventListener('click', () => { window.open('https://poetrystrands.com', '_blank'); });
+        container.appendChild(poetryCard);
+        
+        // 🌱 人生重开模拟器 (liferestart.syaro.io) - 开局天赋选择，体验不同命运
+        const lifeRestartCard = document.createElement('div'); lifeRestartCard.className = 'game-card'; lifeRestartCard.id = 'lifeRestartCard';
+        lifeRestartCard.innerHTML = `<div class="game-icon"><i class="fas fa-redo-alt"></i></div><div class="game-title">🌱 人生重开模拟器</div><div class="game-desc" style="font-size:0.7rem;">随机天赋 · 不同开局 · 体验百味人生</div>`;
+        lifeRestartCard.addEventListener('click', () => { window.open('https://liferestart.syaro.io/public/index.html', '_blank'); });
+        container.appendChild(lifeRestartCard);
+    }
     function renderComponentManager() { const container=document.getElementById('componentsListContainer'); if(!container) return; const sorted=[...components].sort((a,b)=>a.order-b.order); container.innerHTML=sorted.map(comp=>`<div class="component-item"><span><i class="fas ${comp.type==='welcome'?'fa-star':comp.type==='movie'?'fa-film':comp.type==='gamecenter'?'fa-gamepad':comp.type==='tools'?'fa-toolbox':comp.type==='guestbook'?'fa-comment-dots':'fa-cube'}"></i> ${escapeHtml(comp.title||comp.type)}</span><div class="comp-actions"><select class="size-select" data-id="${comp.id}" ${FIXED_COMP_IDS.includes(comp.id)?'disabled':''}>${[1,2,3,4,5,6,7,8,9,10,11,12].map(s=>`<option value="${s}" ${comp.span==s?'selected':''}>宽度 ${s}/12</option>`).join('')}</select><button class="move-up" data-id="${comp.id}" ${comp.order===1?'disabled':''}>↑</button><button class="move-down" data-id="${comp.id}" ${comp.order===sorted.length?'disabled':''}>↓</button>${!FIXED_COMP_IDS.includes(comp.id)?`<button class="delete-comp" data-id="${comp.id}" data-name="${escapeHtml(comp.title)}">🗑️</button>`:'<span style="font-size:0.7rem;">固定组件</span>'}</div></div>`).join('');
         document.querySelectorAll('.size-select').forEach(sel=>sel.addEventListener('change',(e)=>{ let id=parseInt(sel.dataset.id), ns=parseInt(sel.value), cp=components.find(c=>c.id===id); if(cp){ cp.span=ns; saveComponents(); renderGrid(); } }));
         document.querySelectorAll('.move-up').forEach(btn=>btn.addEventListener('click',()=>{ let id=parseInt(btn.dataset.id), idx=components.findIndex(c=>c.id===id); if(idx>0){ [components[idx].order,components[idx-1].order]=[components[idx-1].order,components[idx].order]; components.sort((a,b)=>a.order-b.order); saveComponents(); renderGrid(); renderComponentManager(); } }));
@@ -576,10 +575,7 @@
     async function fetchSentence(){ try{ const res=await fetch('https://v1.hitokoto.cn/?encode=json&c=f'); const data=await res.json(); let text=data.hitokoto||'心之所向，素履以往'; if(data.from) text+=` ——「${data.from}」`; document.getElementById('sentenceText').innerText=text; }catch(e){ document.getElementById('sentenceText').innerText='行到水穷处，坐看云起时。'; } }
     function updateTime(){ const now=new Date(); document.getElementById('liveHour').innerText=now.getHours().toString().padStart(2,'0'); document.getElementById('liveMinute').innerText=now.getMinutes().toString().padStart(2,'0'); document.getElementById('liveSecond').innerText=now.getSeconds().toString().padStart(2,'0'); document.getElementById('liveDateCn').innerText=now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric',weekday:'long'}); }
     function escapeHtml(str){ return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
-    // 留言板核心
-    let guestbookMessages = [];
-    const GB_STORAGE = 'lingxi_guestbook_msgs';
-    const PERMISSION_KEY = 'guestbook_delete_permission';
+    let guestbookMessages = []; const GB_STORAGE = 'lingxi_guestbook_msgs'; const PERMISSION_KEY = 'guestbook_delete_permission';
     function getBeijingTimeString(){ const now=new Date(); return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`; }
     function loadMessages(){ const stored=localStorage.getItem(GB_STORAGE); if(stored){ try{ guestbookMessages=JSON.parse(stored); }catch(e){ guestbookMessages=[]; } } else { guestbookMessages=[{ id:Date.now()+1, nickname:"灵犀", content:"欢迎来到时光留言板，开启删除权限后可以删除留言。", timestamp:getBeijingTimeString() }]; saveMessages(); } guestbookMessages.sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp)); }
     function saveMessages(){ localStorage.setItem(GB_STORAGE, JSON.stringify(guestbookMessages)); }
@@ -590,7 +586,6 @@
     function renderGuestbookMessages(){ const container=document.getElementById('messagesList'); if(!container) return; const canDelete=getDeletePermission(); if(guestbookMessages.length===0){ container.innerHTML='<div class="empty-tip">✨ 还没有留言，写点温暖的话吧～</div>'; return; } container.innerHTML=guestbookMessages.map(msg=>`<div class="message-card" data-msg-id="${msg.id}"><div class="message-header"><span class="message-nickname"><i class="fas fa-user-circle"></i> ${escapeHtml(msg.nickname)}</span><span class="message-time"><i class="far fa-clock"></i> ${escapeHtml(msg.timestamp)}</span></div><div class="message-content">${escapeHtml(msg.content)}</div>${canDelete?`<button class="delete-msg-btn" data-id="${msg.id}" title="删除留言"><i class="fas fa-trash-alt"></i></button>`:''}</div>`).join('');
         if(canDelete) document.querySelectorAll('.delete-msg-btn').forEach(btn=>btn.addEventListener('click',(e)=>{ e.stopPropagation(); const id=parseInt(btn.getAttribute('data-id')); if(confirm('确定删除这条留言吗？')) deleteMessageById(id); }));
     }
-    // 事件绑定
     document.getElementById('deletePermissionToggle')?.addEventListener('change',(e)=>setDeletePermission(e.target.checked));
     document.getElementById('publishMsgBtn')?.addEventListener('click',()=>{ const nick=document.getElementById('gbNickname').value, cont=document.getElementById('gbContent').value; if(addMessage(nick,cont)){ document.getElementById('gbContent').value=''; document.getElementById('gbNickname').value=''; } });
     const passwordModal=document.getElementById('passwordModal'), settingsModal=document.getElementById('settingsModal'), openSettingsBtn=document.getElementById('openSettingsBtn'), submitPwdBtn=document.getElementById('submitPasswordBtn'), cancelPwdBtn=document.getElementById('cancelPasswordBtn'), pwdInput=document.getElementById('settingsPassword'), closeSettingsBtn=document.getElementById('closeSettingsBtn');
