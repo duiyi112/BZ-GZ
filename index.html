@@ -288,7 +288,19 @@
         .add-component-area { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
         .add-btn { background: #2e6a9e; border: none; padding: 0.4rem 1rem; border-radius: 2rem; cursor: pointer; }
         .close-settings { background: #3a5e7e; width: 100%; padding: 0.6rem; border-radius: 2rem; border: none; margin-top: 1rem; cursor: pointer; }
-        .tool-content { background: rgba(20, 30, 45, 0.6); border-radius: 1.5rem; padding: 1.5rem; }
+        .tool-content { background: rgba(20, 30, 45, 0.6); border-radius: 1.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .tool-subcard {
+            background: rgba(20, 30, 45, 0.6);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,215,120,0.3);
+            margin-bottom: 1rem;
+        }
+        .tool-subcard:hover { background: rgba(45, 65, 90, 0.7); transform: translateY(-3px); border-color: #ffbc6e; }
+        .tool-subcard-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+        .tool-subcard-desc { font-size: 0.85rem; opacity: 0.85; margin-top: 0.5rem; line-height: 1.4; }
         footer { margin-top: 2rem; text-align: center; font-size: 0.7rem; opacity: 0.5; }
         @media (max-width: 800px) { body { padding: 1rem; } .bento-grid { gap: 1rem; } }
     </style>
@@ -330,15 +342,40 @@
         <div class="game-grid" id="gameGridContainer"></div>
     </div>
 
-    <!-- 实用小工具 -->
+    <!-- 实用小工具 (已新增视频去水印子组件) -->
     <div id="toolsView" class="detail-view">
-        <div class="view-header"><h2><i class="fas fa-toolbox"></i> 实用小工具 · 视频下载</h2><button class="back-home-btn" id="backFromToolsBtn"><i class="fas fa-home"></i> 返回主页</button></div>
-        <div class="tool-content"><div class="tool-title"><i class="fas fa-download"></i> Cobalt.tools</div><div class="tool-description">Cobalt.tools 是一款开源的在线媒体下载工具，旨在为用户提供快速、便捷且无广告的音视频下载体验。
+        <div class="view-header"><h2><i class="fas fa-toolbox"></i> 实用小工具 · 视频下载 & 激活工具 & 去水印</h2><button class="back-home-btn" id="backFromToolsBtn"><i class="fas fa-home"></i> 返回主页</button></div>
+        <div class="tool-content">
+            <div class="tool-title"><i class="fas fa-download"></i> Cobalt.tools</div>
+            <div class="tool-description">Cobalt.tools 是一款开源的在线媒体下载工具，旨在为用户提供快速、便捷且无广告的音视频下载体验。
 		支持从 YouTube、Bilibili、Instagram、TikTok 等平台下载，最高 8K 分辨率。
 🔓 开源透明，代码可审查
 🛡️ 不收集数据，隐私安全
 🌐 支持自托管部署
-⚡ 批量下载，无广告</div><a href="https://cobalt.tools" target="_blank" class="tool-link-btn" style="display:inline-block; background:#2e6a9e; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; color:white;">立即打开 →</a></div>
+⚡ 批量下载，无广告</div>
+            <a href="https://cobalt.tools" target="_blank" class="tool-link-btn" style="display:inline-block; background:#2e6a9e; padding:0.7rem 1.5rem; border-radius:2rem; text-decoration:none; color:white; margin-top: 1rem;">立即打开 →</a>
+        </div>
+        <!-- 激活码子组件 -->
+        <div class="tool-subcard" id="activationToolCard">
+            <div class="tool-subcard-title">
+                <i class="fas fa-key"></i> 激活码 · KMS激活工具集
+            </div>
+            <div class="tool-subcard-desc">
+                KMS.CX激活是一个提供Windows和Office激活工具的平台，旨在帮助用户轻松激活正版软件。该网站提供了多种激活工具，包括KMSAuto、KMSpico等，这些工具都是目前比较流行且有效的激活方案。<br><br>
+                KMS.CX激活平台的界面简洁明了，操作简单，用户可以快速找到并下载所需的激活工具。此外，该平台还提供了详细的使用教程和常见问题解答，帮助用户更好地理解和使用激活工具，解决在激活过程中遇到的各种问题。<br>
+                <span style="display: inline-block; margin-top: 12px; background: #ffaa44; color: #1e2a2a; padding: 0.3rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: bold;"><i class="fas fa-external-link-alt"></i> 点击访问KMS.CX</span>
+            </div>
+        </div>
+        <!-- 新增视频去水印子组件 -->
+        <div class="tool-subcard" id="watermarkRemovalCard">
+            <div class="tool-subcard-title">
+                <i class="fas fa-water"></i> 视频去水印 · DataTool
+            </div>
+            <div class="tool-subcard-desc">
+                DataTool支持超过50个国内外主流平台，包括TikTok、YouTube、Instagram、Facebook、Twitter、Bilibili、抖音、小红书、Vimeo、Dailymotion、Pinterest等，无论是国内短视频还是海外社交媒体都能轻松应对。平台具备智能去水印能力，下载的视频干净无水印，非常适合自媒体创作者进行二次剪辑和内容创作，也大幅提升了视频的观赏性和专业度。<br>
+                <span style="display: inline-block; margin-top: 12px; background: #ffaa44; color: #1e2a2a; padding: 0.3rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: bold;"><i class="fas fa-external-link-alt"></i> 点击打开DataTool</span>
+            </div>
+        </div>
     </div>
 
     <!-- 留言板视图 -->
@@ -379,7 +416,7 @@
             <button class="close-settings" id="closeSettingsBtn">关闭设置</button>
         </div>
     </div>
-    <footer>📢更多功能敬请期待</footer>
+    <footer>📢 更多功能敬请期待</footer>
 </div>
 
 <script>
@@ -503,7 +540,7 @@
         }
     }
     function resetToDefault() { components = [ {id:1,type:'welcome',title:'欢迎卡片',span:5,order:1,visible:true},{id:2,type:'movie',title:'影视大厅',span:4,order:2,visible:true},{id:3,type:'gamecenter',title:'游戏中心',span:3,order:3,visible:true},{id:4,type:'tools',title:'实用小工具',span:4,order:4,visible:true},{id:5,type:'guestbook',title:'📝 留言板',span:4,order:5,visible:true} ]; nextId=6; saveComponents(); renderGrid(); renderComponentManager(); }
-    function renderGrid() { const grid = document.getElementById('mainBentoView'); if(!grid) return; const visible = components.filter(c=>c.visible).sort((a,b)=>a.order-b.order); grid.innerHTML = ''; for(let comp of visible) { const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`; if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">更多功能敬请期待</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`; else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载</div></div>`; else if(comp.type === 'guestbook') card.innerHTML = `<div class="widget-padding feature-card" data-guestbook-entrance="true"><i class="fas fa-comment-dots feature-icon" style="color:#ffbc8c;"></i><div class="feature-title">📝 时光留言板</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 记录心语</div></div>`; else { let icon=(comp.type==='default_simple'?'fa-pen-fancy':(comp.type==='default_quote'?'fa-quote-right':'fa-tools')); card.innerHTML = `<div class="widget-padding default-card"><div class="default-icon"><i class="fas ${icon}"></i></div><div class="feature-title">${escapeHtml(comp.title)}</div><div style="font-size:0.75rem;">${comp.customDesc||''}</div></div>`; } grid.appendChild(card); } document.querySelectorAll('[data-movie-entrance]').forEach(el=>el.addEventListener('click',()=>showMovieHall())); document.querySelectorAll('[data-game-entrance]').forEach(el=>el.addEventListener('click',()=>showGameCenter())); document.querySelectorAll('[data-tools-entrance]').forEach(el=>el.addEventListener('click',()=>showToolsView())); document.querySelectorAll('[data-guestbook-entrance]').forEach(el=>el.addEventListener('click',()=>showGuestbookView())); }
+    function renderGrid() { const grid = document.getElementById('mainBentoView'); if(!grid) return; const visible = components.filter(c=>c.visible).sort((a,b)=>a.order-b.order); grid.innerHTML = ''; for(let comp of visible) { const card = document.createElement('div'); card.className='glass-card'; card.style.gridColumn=`span ${comp.span}`; if(comp.type === 'welcome') card.innerHTML = `<div class="widget-padding welcome-stats"><div><div class="greeting">✨ 欢迎回到灵犀空间</div><div style="font-size:0.8rem;">更多功能敬请期待</div></div><div class="stat-row"><div class="stat-item"><div class="stat-number">${visible.length}</div><div>活跃组件</div></div><div class="stat-item"><div class="stat-number">📝</div><div>留言板</div></div><div class="stat-item"><div class="stat-number">🎮</div><div>游戏影视</div></div></div></div>`; else if(comp.type === 'movie') card.innerHTML = `<div class="widget-padding feature-card" data-movie-entrance="true"><i class="fas fa-film feature-icon" style="color:#ffbc6e;"></i><div class="feature-title">🎬 影视大厅</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'gamecenter') card.innerHTML = `<div class="widget-padding feature-card" data-game-entrance="true"><i class="fas fa-gamepad feature-icon" style="color:#b8e1fc;"></i><div class="feature-title">🎮 游戏中心</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 点击进入</div></div>`; else if(comp.type === 'tools') card.innerHTML = `<div class="widget-padding feature-card" data-tools-entrance="true"><i class="fas fa-toolbox feature-icon" style="color:#8bcbff;"></i><div class="feature-title">🛠️ 实用小工具</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 视频下载/激活工具/去水印</div></div>`; else if(comp.type === 'guestbook') card.innerHTML = `<div class="widget-padding feature-card" data-guestbook-entrance="true"><i class="fas fa-comment-dots feature-icon" style="color:#ffbc8c;"></i><div class="feature-title">📝 时光留言板</div><div style="margin-top:12px;"><i class="fas fa-arrow-right"></i> 记录心语</div></div>`; else { let icon=(comp.type==='default_simple'?'fa-pen-fancy':(comp.type==='default_quote'?'fa-quote-right':'fa-tools')); card.innerHTML = `<div class="widget-padding default-card"><div class="default-icon"><i class="fas ${icon}"></i></div><div class="feature-title">${escapeHtml(comp.title)}</div><div style="font-size:0.75rem;">${comp.customDesc||''}</div></div>`; } grid.appendChild(card); } document.querySelectorAll('[data-movie-entrance]').forEach(el=>el.addEventListener('click',()=>showMovieHall())); document.querySelectorAll('[data-game-entrance]').forEach(el=>el.addEventListener('click',()=>showGameCenter())); document.querySelectorAll('[data-tools-entrance]').forEach(el=>el.addEventListener('click',()=>showToolsView())); document.querySelectorAll('[data-guestbook-entrance]').forEach(el=>el.addEventListener('click',()=>showGuestbookView())); }
     function showMovieHall(){ hideAllViews(); document.getElementById('movieHallView').style.display='block'; renderMovieGrid(); }
     function showGameCenter(){ hideAllViews(); document.getElementById('gameCenterView').style.display='block'; renderGameGrid(); }
     function showToolsView(){ hideAllViews(); document.getElementById('toolsView').style.display='block'; }
@@ -515,49 +552,36 @@
         const container = document.getElementById('gameGridContainer');
         if(!container) return;
         container.innerHTML = '';
-        // 原有游戏卡片
         GAME_SITES.forEach((game, idx) => {
             const card = document.createElement('div'); card.className = 'game-card'; 
             card.innerHTML = `<div class="game-icon"><i class="fab ${game.icon}"></i></div><div class="game-title">${escapeHtml(game.name)}</div><div class="game-desc">${escapeHtml(game.desc)}</div>`;
             card.addEventListener('click', () => window.open(game.url, '_blank'));
             container.appendChild(card);
         });
-        // 贪吃蛇卡片
         const snakeCard = document.createElement('div'); snakeCard.className = 'game-card'; snakeCard.id = 'miniSnakeGameCard';
         snakeCard.innerHTML = `<div class="game-icon"><i class="fas fa-snake"></i></div><div class="game-title">🐍 贪吃蛇·小游戏</div><div class="game-desc">点击弹窗 手机完美适配</div>`;
         snakeCard.addEventListener('click', () => showSnakeGameModal());
         container.appendChild(snakeCard);
-        // 上班摸鱼子组件: 直接跳转新窗口
         const fishCard = document.createElement('div'); fishCard.className = 'game-card'; fishCard.id = 'workFishCard';
         fishCard.innerHTML = `<div class="game-icon"><i class="fas fa-fish"></i></div><div class="game-title">🐟 上班摸鱼</div><div class="game-desc">点击直接访问Poki游戏库</div>`;
         fishCard.addEventListener('click', () => { window.open('https://poki.com/zh', '_blank'); });
         container.appendChild(fishCard);
-        
-        // 🧱 我的世界网页在线版 (Bloxd.io)
         const minecraftCard = document.createElement('div'); minecraftCard.className = 'game-card'; minecraftCard.id = 'minecraftWebCard';
         minecraftCard.innerHTML = `<div class="game-icon"><i class="fas fa-cube"></i></div><div class="game-title">🧱 我的世界网页在线版</div><div class="game-desc" style="font-size:0.7rem; color:#ffcf8a;">✨ 无需下载，打开即玩 | 💻 推荐电脑端获得最佳操作体验 (手机端触屏亦可)</div>`;
         minecraftCard.addEventListener('click', () => { window.open('https://bloxd.io', '_blank'); });
         container.appendChild(minecraftCard);
-        
-        // 🎨 绘谜画猜 (enazo.cn) - 在线你画我猜，好友同乐
         const drawGuessCard = document.createElement('div'); drawGuessCard.className = 'game-card'; drawGuessCard.id = 'drawGuessCard';
         drawGuessCard.innerHTML = `<div class="game-icon"><i class="fas fa-paintbrush"></i></div><div class="game-title">🎨 绘谜画猜</div><div class="game-desc" style="font-size:0.7rem;">在线「你画我猜」，无需登录，创建房间与好友同乐</div>`;
         drawGuessCard.addEventListener('click', () => { window.open('https://enazo.cn', '_blank'); });
         container.appendChild(drawGuessCard);
-        
-        // 🎲 掌上桌游 (hullqin联机桌游合集)
         const boardgameCard = document.createElement('div'); boardgameCard.className = 'game-card'; boardgameCard.id = 'boardgameCard';
         boardgameCard.innerHTML = `<div class="game-icon"><i class="fas fa-dice-d6"></i></div><div class="game-title">🎲 掌上桌游</div><div class="game-desc" style="font-size:0.7rem;">快速建房一键开玩一键联机 · UNO/斗地主/五子棋/狼人杀等近30款桌游合集</div>`;
         boardgameCard.addEventListener('click', () => { window.open('https://game.hullqin.cn', '_blank'); });
         container.appendChild(boardgameCard);
-        
-        // 📜 古诗连词 (poetrystrands.com) - 诗词接龙，文墨雅趣
         const poetryCard = document.createElement('div'); poetryCard.className = 'game-card'; poetryCard.id = 'poetryCard';
         poetryCard.innerHTML = `<div class="game-icon"><i class="fas fa-feather-alt"></i></div><div class="game-title">📜 古诗连词</div><div class="game-desc" style="font-size:0.7rem;">诗词接龙·飞花令 | 品中华文韵，连千古佳句</div>`;
         poetryCard.addEventListener('click', () => { window.open('https://poetrystrands.com', '_blank'); });
         container.appendChild(poetryCard);
-        
-        // 🌱 人生重开模拟器 (liferestart.syaro.io) - 开局天赋选择，体验不同命运
         const lifeRestartCard = document.createElement('div'); lifeRestartCard.className = 'game-card'; lifeRestartCard.id = 'lifeRestartCard';
         lifeRestartCard.innerHTML = `<div class="game-icon"><i class="fas fa-redo-alt"></i></div><div class="game-title">🌱 人生重开模拟器</div><div class="game-desc" style="font-size:0.7rem;">随机天赋 · 不同开局 · 体验百味人生</div>`;
         lifeRestartCard.addEventListener('click', () => { window.open('https://liferestart.syaro.io/public/index.html', '_blank'); });
@@ -608,7 +632,20 @@
     document.getElementById('applyUploadBtn')?.addEventListener('click',()=>{ let file=document.getElementById('uploadImage').files[0]; if(file){ let reader=new FileReader(); reader.onload=e=>{ setWallpaper(e.target.result, true); closeSettingsPanel(); }; reader.readAsDataURL(file); } else alert('请选择图片'); });
     document.getElementById('addComponentBtn')?.addEventListener('click',()=>{ addComponent(document.getElementById('addComponentSelect').value); });
     document.getElementById('resetDefaultBtn')?.addEventListener('click',()=>{ if(confirm('重置所有组件为默认状态？')){ resetToDefault(); closeSettingsPanel(); } });
-    function initAll(){ loadComponents(); renderGrid(); loadSavedWallpaper(); loadMessages(); renderGuestbookMessages(); updateTime(); setInterval(updateTime,1000); fetchSentence(); showHome(); }
+    
+    // 为激活码和视频去水印子组件绑定跳转事件
+    function bindSubCards() {
+        const activationCard = document.getElementById('activationToolCard');
+        if(activationCard) {
+            activationCard.addEventListener('click', () => { window.open('https://kms.cx/', '_blank'); });
+        }
+        const watermarkCard = document.getElementById('watermarkRemovalCard');
+        if(watermarkCard) {
+            watermarkCard.addEventListener('click', () => { window.open('https://jblaha.art/sketchbook/0.4/', '_blank'); });
+        }
+    }
+    
+    function initAll(){ loadComponents(); renderGrid(); loadSavedWallpaper(); loadMessages(); renderGuestbookMessages(); updateTime(); setInterval(updateTime,1000); fetchSentence(); showHome(); bindSubCards(); }
     initAll();
 </script>
 </body>
